@@ -23,9 +23,9 @@ fs = sorted(factorize(P), reverse=True)
 
 ans = 1
 for f in fs:
-	if f[1] >= N:
-		a = f[1] // N
-		ans *= f[0] ** a
+    if f[1] >= N:
+        a = f[1] // N
+        ans *= f[0] ** a
 
 print(ans)
 

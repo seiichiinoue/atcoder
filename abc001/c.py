@@ -5,9 +5,9 @@ Deg = Deg / 10
 compass = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
 
 if Deg - 11.25 < 0 or Deg - 11.25 >= 348.75:
-	Deg = 'N'
+    Deg = 'N'
 else:
-	Deg = compass[int((Deg - 11.25) // 22.5 % 16)]
+    Deg = compass[int((Deg - 11.25) // 22.5 % 16)]
 
 Dis = round(float(float(Dis)/60), 1)
 
@@ -19,6 +19,6 @@ for i in range(13):
         break
 
 if Dis == 0:
-	print('C', 0)
+    print('C', 0)
 else:
-	print(Deg, Dis)
+    print(Deg, Dis)
