@@ -41,5 +41,6 @@ for i in range(m-1, 0, -1):
         size_b = uf.size(b)
         ans.append(ans[-1] - size_a * size_b)
         uf.marge(a, b)
+    print(uf.parent)
 ans.reverse()
 print('\n'.join(map(str, ans)))
