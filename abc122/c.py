@@ -1,7 +1,8 @@
 N, Q = map(int, input().split())
 S = input()
-for _ in range(Q):
-    ans = 0
+imosu = [0] * (N + 1)
+for i in range(N):
+    imosu[i + 1] = imosu[i] + (1 if S[i:i+2] == 'AC' else 0)
+for i in range(Q):
     l, r = map(int, input().split())
-    tar = S[l-1:r]
-    print(tar.count('AC'))
+    print(imosu[r-1]-imosu[l-1])
