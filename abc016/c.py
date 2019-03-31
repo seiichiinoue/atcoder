@@ -13,4 +13,3 @@ for i in range(n):
             if w not in edges[i] and w != i:
                 x.add(w)
     print(len(x))
-
