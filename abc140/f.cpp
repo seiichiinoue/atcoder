@@ -5,34 +5,25 @@ typedef long long ll;
 
 int main() {
     int n; cin >> n;
-    vector<ll> S(n); rep(i, n) cin >> S[i];
-    sort(S.begin(), S.end());
-    ll max_s = S[n-1];
-    ll tar = max_s;
-    ll cur_num = 0;
-    ll day = 0;
-    for (int i=max_s; i>0; --i) {
-        ll tmp = 0;
-        rep(j, n) {
-            if (S.back() != tar) {
-                tar = S.back();
-                break;
+    int m = 1<<n;
+    multiset<int> ss;
+    rep(i, m) {
+        int in; cin >> in;
+        ss.insert(-in);
+    }
+    vector<int> v { *ss.begin() };
+    ss.erase(ss.begin());
+    rep(i, n) {
+        for (int j=0; j<(1<<i); ++j) {
+            auto it = ss.upper_bound(v[j]);
+            if (it==ss.end()) {
+                cout << "No" << endl;
+                return 0;
             }
-            else {
-                tmp++;
-                cur_num++;
-                S.pop_back();
-            }
-        }
-        ll tmp2;
-        if (tmp % cur_num == 0) tmp2 = tmp / cur_num;
-        else tmp2 = tmp / cur_num +1;
-        day += tmp2;
-        if (day > n) {
-            puts("No");
-            return 0;
+            v.push_back(*it);
+            ss.erase(it);
         }
     }
-    puts("Yes");
+    cout << "Yes" << endl;
     return 0;
 }
