@@ -15,7 +15,7 @@ int main() {
     ss.erase(ss.begin());
     rep(i, n) {
         for (int j=0; j<(1<<i); ++j) {
-            auto it = ss.upper_bound(v[j]);
+            auto it = ss.upper_bound(v[j]); // 引数より大きい最初の要素のイテレータ
             if (it==ss.end()) {
                 cout << "No" << endl;
                 return 0;
