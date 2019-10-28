@@ -5,46 +5,23 @@
 using namespace std;
 typedef long long ll;
 
-// int main() {
-//     priority_queue<ll, vector<ll>, greater<ll>> q;
-//     ll q_zero = 0;
-//     vector<ll> f;
-//     ll n, k; cin >> n >> k;
-//     rep(i, n) {
-//         ll a; cin >> a;
-//         q.push(a);
-//     }
-//     rep(i, n) {
-//         ll tmp; cin >> tmp;
-//         f.push_back(tmp);
-//     }
-//     sort(f.rbegin(), f.rend());
-//     rep(i, k) {
-//         ll tmp = q.top();
-//         if (tmp==0) {
-//             ++q_zero;
-//             q.pop();
-//             tmp = q.top();
-//             q.pop();
-//             --tmp;
-//             q.push(tmp);
-//         } else {
-//             q.pop();
-//             --tmp;
-//             q.push(tmp);
-//         }
-//     }
-//     ll ans = 0;
-//     rep(i, n) {
-//         if (q_zero>0) {
-//             --q_zero;
-//             continue;
-//         } else {
-//             ll tmp = q.top();
-//             q.pop();
-//             ans = max(ans, f[i] * tmp);
-//         }
-//     }
-//     cout << ans << endl;
-//     return 0;
-// }
+int main() {
+    ll n, k; cin >> n >> k;
+    vector<ll> a(n);
+    vector<ll> f(n);
+    rep(i, n) cin >> a[i];
+    rep(i, n) cin >> f[i];
+    sort(a.begin(), a.end());
+    sort(f.rbegin(), f.rend());
+    // binary search
+    ll l = 0, r = 1e12;
+    while (l < r) {
+        ll mid = l + (r-l)/2;   // total cost
+        ll need = 0;
+        rep(i, n) need += max(0ll, a[i]-mid/f[i]);
+        if (need <= k) r = mid;
+        else l = mid + 1;
+    }
+    cout << l << endl;
+    return 0;
+}
