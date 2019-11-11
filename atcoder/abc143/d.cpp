@@ -36,7 +36,8 @@ int main() {
         rep(a, b) {
             int ab = l[a]+l[b];
             int r = lower_bound(ALL(l), ab) - l.begin();
-            int l = b+1;    // c = [l, r)
+            // c = [l, r)    a < b < c
+            int l = b+1;    // bよりも長い   
             ans += r-l;
         }
     }
