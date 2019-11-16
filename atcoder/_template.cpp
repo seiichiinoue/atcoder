@@ -30,8 +30,7 @@ ll modinv(ll a, ll m) {
         swap(u, v);
     }
     u %= m;
-    if (u < 0)
-        u += m;
+    if (u < 0) u += m;
     return u;
 }
 ll modpow(ll a, ll n) {
