@@ -48,6 +48,18 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(NULL);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll x, y; cin >> x >> y;
+    if ((x+y) % 3 != 0) {
+        cout << 0 << endl;
+    } else {
+        int a = (2 * x - y) / 3;
+        int b = (2 * y - x) / 3;
+        if (a >= 0 && b >= 0) {
+            int ans = factorial(a+b) * modinv(factorial(a), MOD) % MOD * modinv(factorial(b), MOD) % MOD;
+            cout << ans << endl;
+        } else {
+            cout << 0 << endl;
+        }
+    }
     return 0;
 }
