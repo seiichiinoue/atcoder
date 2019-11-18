@@ -49,6 +49,9 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll h, w; cin >> h >> w;
+    ll a = h-1, b = w-1;
+    ll ans = factorial(a+b) * modinv(factorial(a), MOD) % MOD * modinv(factorial(b), MOD) % MOD;
+    cout << ans << endl;
     return 0;
 }

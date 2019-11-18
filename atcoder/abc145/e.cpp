@@ -47,8 +47,15 @@ ll modpow(ll a, ll n) {
 }
 
 int main() {
-    cin.tie(0);
+    cin.tie(NULL);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n, t; cin >> n >> t;
+    vector<vector<int>> ab(n, vector<int>(2));
+    rep(i, n) {
+        int a, b; cin >> a >> b;
+        vector<int> tmp = {a, b};
+        ab.push_back(tmp);
+    }
+    sort(ALL(ab));
     return 0;
 }

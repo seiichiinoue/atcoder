@@ -5,7 +5,12 @@ def create_contest(name):
     os.mkdir(name)
     with open("./_template.cpp", "r") as f:
         source = f.readlines()
-    for s in ["a", "b", "c", "d", "e", "f"]:
+    problems = ["a", "b", "c", "d", "e", "f"]
+    if name.find("abc") != -1:
+        print(int(name.replace("abc", "")))
+        if int(name.replace("abc", "")) < 126:
+            problems = problems[:4]
+    for s in problems:
         with open("./{}/{}.cpp".format(name, s), "w") as f:
             f.writelines(source)
 

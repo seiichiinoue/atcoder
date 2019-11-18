@@ -46,9 +46,23 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+int lcm(int a, int b) {
+    int g = gcd(a, b);
+    return a / g * b;
+}
+
 int main() {
-    cin.tie(0);
+    cin.tie(NULL);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+	int a, b; cin >> a >> b;
+  	int c; cin >> c;
+  	int l = lcm(a, b);
+  	if (l>=c) {
+    	cout << l << endl;
+    } else {
+    	int tmp = (c+(l-1))/l;
+      	l *= tmp;
+      	cout << l << endl;
+    }
     return 0;
 }

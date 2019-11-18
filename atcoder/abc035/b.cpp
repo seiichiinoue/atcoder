@@ -49,6 +49,24 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    string s; cin >> s;
+    int t; cin >> t;
+    int u = 0, d = 0, l = 0, r = 0, uk = 0;
+    rep(i, s.length()) {
+        if (s[i] == 'U') u++;
+        else if (s[i] == 'D') d++;
+        else if (s[i] == 'L') l++;
+        else if (s[i] == 'R') r++;
+        else uk++;
+    }
+    int y = abs(u-d), x = abs(r-l);
+    int ans = 0;
+    if (t==1) {
+        ans = x + y + uk;
+    } else {
+        ans = max(x + y - uk, (x + y + uk) % 2);
+    }
+
+    cout << ans << endl;
     return 0;
 }

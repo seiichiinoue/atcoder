@@ -49,6 +49,11 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int w, h; cin >> w >> h;
+    if (w == h*4/3) {
+        cout << "4:3" << endl;
+    } else {
+        cout << "16:9" << endl;
+    }
     return 0;
 }

@@ -30,8 +30,7 @@ ll modinv(ll a, ll m) {
         swap(u, v);
     }
     u %= m;
-    if (u < 0)
-        u += m;
+    if (u < 0) u += m;
     return u;
 }
 ll modpow(ll a, ll n) {
@@ -52,10 +51,10 @@ int main() {
     if ((x+y) % 3 != 0) {
         cout << 0 << endl;
     } else {
-        int a = (2 * x - y) / 3;
-        int b = (2 * y - x) / 3;
+        ll a = (2 * x - y) / 3;
+        ll b = (2 * y - x) / 3;
         if (a >= 0 && b >= 0) {
-            int ans = factorial(a+b) * modinv(factorial(a), MOD) % MOD * modinv(factorial(b), MOD) % MOD;
+            ll ans = factorial(a+b) * modinv(factorial(a), MOD) % MOD * modinv(factorial(b), MOD) % MOD;
             cout << ans << endl;
         } else {
             cout << 0 << endl;

@@ -49,6 +49,12 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
-    return 0;
+    ll n; cin >> n;
+    if (n%2==0) {
+        cout << n-1 << endl;
+        return 0;
+    } else {
+        cout << n+1 << endl;
+        return 0;
+    }
 }

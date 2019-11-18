@@ -54,6 +54,22 @@ int lcm(int a, int b) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    
+    int n; cin >> n;
+    vector<string> names(n);
+    vector<ll> population(n);
+    rep(i, n) {
+        string a; int b;
+        cin >> a >> b;
+        names[i] = a;
+        population[i] = b;
+    }    
+    ll sum = accumulate(ALL(population), 0LL);
+    rep(i, n) {
+        if ((double)population[i]/(double)sum > 0.5) {
+            cout << names[i] << endl;
+            return 0;
+        }
+    }
+    cout << "atcoder" << endl;
     return 0;
 }
