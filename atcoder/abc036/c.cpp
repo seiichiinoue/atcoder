@@ -6,25 +6,13 @@
 #define EPS (1e-7)
 #define INF (1e9)
 #define PI (acos(-1))
+#define chmin(x, y) x = min(x, y)
+#define chmax(x, y) x = max(x, y)
 using namespace std;
 typedef long long ll;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
-template<class T> inline bool chmin(T& a, T b) {
-    if (a > b) {
-        a = b;
-        return true;
-    }
-    return false;
-}
-template<class T> inline bool chmax(T& a, T b) {
-    if (a < b) {
-        a = b;
-        return true;
-    }
-    return false;
-}
 ll factorial(ll n, ll m=2) {
     // calculate nPm
     m = max(2LL, m);
