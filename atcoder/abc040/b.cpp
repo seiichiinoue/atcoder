@@ -61,6 +61,13 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll n; cin >> n;
+    ll ans = INF;
+    for (ll i=1; i<=n; ++i) {
+        for (ll j=1; i*j<=n; ++j) {
+            chmin(ans, abs(i-j)+n-(i*j));
+        }
+    }
+    cout << ans << endl;
     return 0;
 }
