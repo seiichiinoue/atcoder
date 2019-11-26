@@ -10,6 +10,7 @@ using namespace std;
 typedef long long ll;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
+constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
 
 template<class T> inline bool chmin(T& a, T b) {
     if (a > b) {
