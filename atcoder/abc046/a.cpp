@@ -27,7 +27,7 @@ template<class T> inline bool chmax(T& a, T b) {
     return false;
 }
 ll factorial(ll n, ll m=2) {
-    // calculate n!
+    // calculate nPm
     m = max(2LL, m);
     ll rtn = 1;
     for (ll i=m; i<=n; i++) {
@@ -62,6 +62,9 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int a, b, c; cin >> a >> b >> c;
+    if (a == b && b == c) puts("1");
+    else if (a == b || b == c || c == a) puts("2");
+    else puts("3");
     return 0;
 }

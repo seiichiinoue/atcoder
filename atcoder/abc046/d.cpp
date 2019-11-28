@@ -27,7 +27,7 @@ template<class T> inline bool chmax(T& a, T b) {
     return false;
 }
 ll factorial(ll n, ll m=2) {
-    // calculate n!
+    // calculate nPm
     m = max(2LL, m);
     ll rtn = 1;
     for (ll i=m; i<=n; i++) {

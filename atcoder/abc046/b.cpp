@@ -31,7 +31,7 @@ ll factorial(ll n, ll m=2) {
     m = max(2LL, m);
     ll rtn = 1;
     for (ll i=m; i<=n; i++) {
-        rtn = (rtn * i) % MOD;
+        rtn = (rtn * i);
     }
     return rtn;
 }
@@ -62,6 +62,7 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    double n, k; cin >> n >> k;
+    cout << setprecision(10) << k * pow(k-1, n-1) << endl;
     return 0;
 }
