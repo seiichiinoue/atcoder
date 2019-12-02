@@ -70,6 +70,5 @@ int main() {
     ios::sync_with_stdio(0);
     ll n, k; cin >> n >> k;
     cout << factorial(n+k-1, n) * modinv(factorial(k), MOD) % MOD << endl;
-
     return 0;
 }
