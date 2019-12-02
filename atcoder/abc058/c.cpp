@@ -63,6 +63,22 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n; cin >> n;
+    vector<vector<int>> mozi(n, vector<int>('z'-'a'+1, 0));
+    rep(i, n) {
+        string s; cin >> s;
+        rep(j, s.size()) {
+            mozi[i][s[j] - 'a']++;
+        }
+    }
+    string ans = "";
+    rep(j, 'z'-'a'+1) {
+        ll tmp = INF;
+        rep(i, n) {
+            chmin(tmp, (ll)mozi[i][j]);
+        }
+        rep(i, tmp) ans += 'a' + j;
+    }
+    cout << ans << endl;
     return 0;
 }

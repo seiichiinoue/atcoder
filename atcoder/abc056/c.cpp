@@ -8,10 +8,10 @@
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
-typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
+constexpr int sum(int x) { return (x * (x + 1)) / 2; }
 
 template<class T> inline bool chmin(T& a, T b) {
     if (a > b) {
@@ -32,7 +32,7 @@ ll factorial(ll n, ll m=2) {
     m = max(2LL, m);
     ll rtn = 1;
     for (ll i=m; i<=n; i++) {
-        rtn = (rtn * i) % MOD;
+        rtn = (rtn * i);
     }
     return rtn;
 }
@@ -63,6 +63,15 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll x; cin >> x;
+    int t = 1;
+    while (sum(t) < x) {
+        t++;
+    }
+    if (sum(t) > x && sum(t) - x < t) {
+        cout << t;
+        return 0;
+    }
+    cout << t;
     return 0;
 }

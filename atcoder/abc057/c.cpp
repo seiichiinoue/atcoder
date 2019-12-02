@@ -60,9 +60,41 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+bool is_prime(long long n) {
+    if (n <= 1) return false;
+    for (long long p = 2; p * p <= n; ++p) {
+        if (n % p == 0) return false;
+    }
+    return true;
+}
+
+vector<ll> calc_divisor(ll n) {
+    vector<ll> res;
+    for (long long i=1LL; i*i<=n; ++i) {
+        if (n%i==0) {
+            res.push_back(i);
+            ll j = n / i;
+            if (j != i) res.push_back(j);
+        }
+    }
+    sort(res.begin(), res.end());
+    return res;
+}
+
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll n; cin >> n;
+    // 素数判定
+    if (is_prime(n)) cout << (int)to_string(n).size() << endl;
+    else {
+        auto facts = calc_divisor(n);
+        int ans = to_string(n).size();
+        rep(i, facts.size()) {
+            int tmp = max(to_string(facts[i]).size(), to_string(n/facts[i]).size());
+            chmin(ans, tmp);
+        }
+        cout << ans << endl;
+    }
     return 0;
 }

@@ -63,6 +63,8 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int a, b, c; cin >> a >> b >> c;
+    if (b-a == c-b) puts("YES");
+    else puts("NO");
     return 0;
 }

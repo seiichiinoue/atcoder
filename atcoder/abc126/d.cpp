@@ -1,3 +1,45 @@
+// #include <bits/stdc++.h>
+// #define rep(i, n) for (int i=0; i<n; ++i)
+// #define rep1(i, n) for (int i=1; i<=n; ++i)
+// #define ALL(v) v.begin(), v.end()
+// #define RALL(v) v.rbegin(), v.rend()
+// #define EPS (1e-7)
+// #define INF (1e9)
+// #define PI (acos(-1))
+// using namespace std;
+// typedef long long ll;
+
+// int main() {
+//     ll n; cin >> n;
+//     vector<vector<ll>> to(n), cost(n);
+//     rep(i, n-1) {
+//         ll u, v, w; cin >> u >> v >> w;
+//         u--; v--;
+//         to[u].push_back(v);
+//         to[v].push_back(u);
+//         cost[u].push_back(w);
+//         cost[v].push_back(w);
+//     }
+//     vector<ll> ans(n, -1);
+//     queue<ll> q;
+//     ans[0] = 0;
+//     q.push(0);
+//     while (!q.empty()) {
+//         ll v = q.front(); q.pop();
+//         rep(i, to[v].size()) {
+//             ll u = to[v][i];
+//             ll w = cost[v][i];
+//             if (ans[u] != -1) continue;
+//             ans[u] = (ans[v] + w) % 2;
+//             q.push(u);
+//         }
+//     }
+//     rep(i, n) {
+//         cout << ans[i] << endl;
+//     }
+//     return 0;
+// }
+
 #include <bits/stdc++.h>
 #define rep(i, n) for (int i=0; i<n; ++i)
 #define rep1(i, n) for (int i=1; i<=n; ++i)
@@ -8,8 +50,60 @@
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
+constexpr ll  MOD = (1e9+7);
+constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
+constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
+
+template<class T> inline bool chmin(T& a, T b) {
+    if (a > b) {
+        a = b;
+        return true;
+    }
+    return false;
+}
+template<class T> inline bool chmax(T& a, T b) {
+    if (a < b) {
+        a = b;
+        return true;
+    }
+    return false;
+}
+ll factorial(ll n, ll m=2) {
+    // calculate n!
+    m = max(2LL, m);
+    ll rtn = 1;
+    for (ll i=m; i<=n; i++) {
+        rtn = (rtn * i) % MOD;
+    }
+    return rtn;
+}
+ll modinv(ll a, ll m) {
+    ll b = m, u = 1, v = 0;
+    while (b) {
+        ll t = a / b;
+        a -= t * b;
+        swap(a, b);
+        u -= t * v;
+        swap(u, v);
+    }
+    u %= m;
+    if (u < 0) u += m;
+    return u;
+}
+ll modpow(ll a, ll n) {
+    ll res = 1;
+    while (n > 0) {
+        if (n & 1)
+            res = res * a % MOD;
+        a = a * a % MOD;
+        n >>= 1;
+    }
+    return res;
+}
 
 int main() {
+    cin.tie(0);
+    ios::sync_with_stdio(0);
     ll n; cin >> n;
     vector<vector<ll>> to(n), cost(n);
     rep(i, n-1) {
@@ -22,8 +116,7 @@ int main() {
     }
     vector<ll> ans(n, -1);
     queue<ll> q;
-    ans[0] = 0;
-    q.push(0);
+    ans[0] = 0; q.push(0);
     while (!q.empty()) {
         ll v = q.front(); q.pop();
         rep(i, to[v].size()) {
@@ -34,8 +127,6 @@ int main() {
             q.push(u);
         }
     }
-    rep(i, n) {
-        cout << ans[i] << endl;
-    }
+    rep(i, n) cout << ans[i] << endl;
     return 0;
 }
