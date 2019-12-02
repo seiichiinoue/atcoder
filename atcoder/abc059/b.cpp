@@ -63,6 +63,17 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    string a, b; cin >> a >> b;
+    if (a.size() > b.size()) {
+        cout << "GREATER" << endl;
+    } else if (a.size() < b.size()) {
+        cout << "LESS" << endl;
+    } else {
+        rep(i, a.size()) {
+            if (a[i] > b[i]) {puts("GREATER"); return 0;}
+            else if (a[i] < b[i]) {puts("LESS"); return 0;}
+        }
+        puts("EQUAL");
+    }
     return 0;
 }

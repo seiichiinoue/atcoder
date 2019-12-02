@@ -63,6 +63,41 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll n; cin >> n;
+    vector<ll> a(n); 
+    rep(i, n) cin >> a[i];
+    ll sum = a[0];
+    ll cost1 = 0;
+    // even index == positive
+    if (sum <= 0) {
+        cost1 += 1+abs(sum);
+        sum = 1;
+    }
+    rep(i, n-1) {
+        if (sum < 0) {
+            if (a[i+1]+sum > 0) sum += a[i+1];
+            else { cost1 += abs(1-(a[i+1]+sum)); sum = 1; }
+        } else {
+            if (a[i+1]+sum < 0) sum += a[i+1];
+            else { cost1 += abs(-1-(a[i+1]+sum)); sum = -1; }
+        }
+    }
+    // even index == negative
+    sum = a[0];
+    ll cost2 = 0;
+    if (sum >= 0) {
+        cost2 += abs(sum)+1;
+        sum = -1;
+    }
+    rep(i, n-1) {
+        if (sum < 0) {
+            if (a[i+1]+sum > 0) sum += a[i+1];
+            else { cost2 += abs(1-(a[i+1]+sum)); sum = 1; }
+        } else {
+            if (a[i+1]+sum < 0) sum += a[i+1];
+            else { cost2 += 1+(a[i+1]+sum); sum = -1; }
+        }
+    }
+    cout << min(cost1, cost2) << endl;
     return 0;
 }
