@@ -10,6 +10,7 @@
 #define chmax(x, y) x = max(x, y)
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
@@ -50,12 +51,22 @@ int main() {
     cin.tie(NULL);
     ios::sync_with_stdio(0);
     int n, t; cin >> n >> t;
-    vector<vector<int>> ab(n, vector<int>(2));
-    rep(i, n) {
-        int a, b; cin >> a >> b;
-        vector<int> tmp = {a, b};
-        ab.push_back(tmp);
-    }
+    // vector<int> A(n), B(n);
+    vector<P> ab(n);
+    rep(i, n) cin >> ab[i].first >> ab[i].second;
     sort(ALL(ab));
+    // dp[i][j] : i番目までの料理でj分で食べれる料理の美味しさの合計の最大値
+    vector<vector<ll>> dp(n+1, vector<ll>(t+1, 0));
+    rep(i, n) {
+        rep(j, t+1) {
+            if (j - ab[i].first >= 0)
+                dp[i+1][j] = max(dp[i][j], dp[i][j - ab[i].first] + ab[i].second);
+            else
+                dp[i+1][j] = dp[i][j];
+        }
+    }
+    ll ans = 0;
+    rep(i, n) chmax(ans, dp[i][t-1] + ab[i].second);
+    cout << ans << endl;
     return 0;
 }

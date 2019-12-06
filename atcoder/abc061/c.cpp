@@ -63,6 +63,18 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll n, k; cin >> n >> k;
+    vector<vector<ll>> v(n);
+    rep(i, n) {
+        ll a, b; cin >> a >> b;
+        vector<ll> tmp = {a, b};
+        v[i] = tmp;
+    }
+    sort(ALL(v));
+    ll cnt = 0;
+    rep(i, n) {
+        cnt += v[i][1];
+        if (cnt >= k) { cout << v[i][0] << endl; return 0; }
+    }
     return 0;
 }
