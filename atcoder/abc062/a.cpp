@@ -61,8 +61,11 @@ ll modpow(ll a, ll n) {
 }
 
 int main() {
-    cin.tie(nullptr);
-    ios::sync_with_stdio(false);
-    cout << "hello atcoder!" << endl;
+    cin.tie(0);
+    ios::sync_with_stdio(0);
+    int x, y; cin >> x >> y;
+    vector<int> a = {0, 0, 2, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0};
+    string ans = a[x] == a[y] ? "Yes" : "No";
+    cout << ans << endl;
     return 0;
 }
