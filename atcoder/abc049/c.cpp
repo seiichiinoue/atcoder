@@ -62,6 +62,6 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
-    return 0;
+    string s; cin >> s;
+    vector<string> v = {"dream", "dreamer", "erase", "eraser"};
 }
