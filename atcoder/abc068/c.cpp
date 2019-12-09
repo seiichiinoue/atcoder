@@ -63,29 +63,25 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    set<int> s;
-    int wild = 0;
-    rep(i, n) {
-        int a; cin >> a;
-        if (a < 400) s.insert(0);
-        else if (a < 800) s.insert(1);
-        else if (a < 1200) s.insert(2);
-        else if (a < 1600) s.insert(3);
-        else if (a < 2000) s.insert(4);
-        else if (a < 2400) s.insert(5);
-        else if (a < 2800) s.insert(6);
-        else if (a < 3200) s.insert(7);
-        else wild++;
+    int n, m; cin >> n >> m;    // 現在地はで，nにいきたい, m種類の船
+    vector<vector<int>> to(n);
+    rep(i, m) {
+        int a, b; cin >> a >> b;
+        a--; b--;
+        to[a].push_back(b);
+        to[b].push_back(a);
     }
-    if (wild != 0) {
-        int tmp = s.size();
-        (tmp==0) ? cout << 1 << " " : cout << tmp << " ";
-        chmax(tmp, tmp+wild);
-        cout << tmp << endl;
-    } else {
-        cout << (int)s.size() << " "  << (int)s.size() << endl;
+    // to[n-1] <- to[j] <- to[1]
+    rep(i, to[0].size()) {
+        int mid = to[0][i];
+        rep(j, to[mid].size()) {
+            int des = to[mid][j];
+            if (des == n - 1) { 
+                puts("POSSIBLE");
+                return 0;
+            }
+        }
     }
-
+    puts("IMPOSSIBLE");
     return 0;
 }

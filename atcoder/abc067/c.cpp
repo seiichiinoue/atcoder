@@ -4,7 +4,7 @@
 #define ALL(v) v.begin(), v.end()
 #define RALL(v) v.rbegin(), v.rend()
 #define EPS (1e-7)
-#define INF (1e9)
+#define INF (1e18)
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
@@ -63,29 +63,16 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    set<int> s;
-    int wild = 0;
-    rep(i, n) {
-        int a; cin >> a;
-        if (a < 400) s.insert(0);
-        else if (a < 800) s.insert(1);
-        else if (a < 1200) s.insert(2);
-        else if (a < 1600) s.insert(3);
-        else if (a < 2000) s.insert(4);
-        else if (a < 2400) s.insert(5);
-        else if (a < 2800) s.insert(6);
-        else if (a < 3200) s.insert(7);
-        else wild++;
+    ll n; cin >> n;
+    vector<ll> seg_sum(n); // [0, i]の区間和;
+    cin >> seg_sum[0];
+    rep1(i, n-1) {
+        ll a; cin >> a;
+        seg_sum[i] = seg_sum[i-1] + a;
     }
-    if (wild != 0) {
-        int tmp = s.size();
-        (tmp==0) ? cout << 1 << " " : cout << tmp << " ";
-        chmax(tmp, tmp+wild);
-        cout << tmp << endl;
-    } else {
-        cout << (int)s.size() << " "  << (int)s.size() << endl;
-    }
-
+    ll diff = INF;
+    // [0, n-1)
+    rep(i, n-1) chmin(diff, abs(seg_sum[i] - (seg_sum[n-1]-seg_sum[i])));
+    cout << diff << endl;
     return 0;
 }

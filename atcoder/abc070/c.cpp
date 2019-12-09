@@ -10,8 +10,8 @@ using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
-constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
-constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
+constexpr ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
+constexpr ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
 
 template<class T> inline bool chmin(T& a, T b) {
     if (a > b) {
@@ -64,28 +64,12 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     int n; cin >> n;
-    set<int> s;
-    int wild = 0;
-    rep(i, n) {
-        int a; cin >> a;
-        if (a < 400) s.insert(0);
-        else if (a < 800) s.insert(1);
-        else if (a < 1200) s.insert(2);
-        else if (a < 1600) s.insert(3);
-        else if (a < 2000) s.insert(4);
-        else if (a < 2400) s.insert(5);
-        else if (a < 2800) s.insert(6);
-        else if (a < 3200) s.insert(7);
-        else wild++;
+    vector<ll> t(n);
+    rep(i, n) cin >> t[i];
+    ll tmp = t[0];
+    rep1(i, n-1) {
+        tmp = lcm(tmp, t[i]);
     }
-    if (wild != 0) {
-        int tmp = s.size();
-        (tmp==0) ? cout << 1 << " " : cout << tmp << " ";
-        chmax(tmp, tmp+wild);
-        cout << tmp << endl;
-    } else {
-        cout << (int)s.size() << " "  << (int)s.size() << endl;
-    }
-
+    cout << tmp << endl;
     return 0;
 }

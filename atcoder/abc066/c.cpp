@@ -4,7 +4,7 @@
 #define ALL(v) v.begin(), v.end()
 #define RALL(v) v.rbegin(), v.rend()
 #define EPS (1e-7)
-#define INF (1e9)
+#define INF (1e18)
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
@@ -63,29 +63,16 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    set<int> s;
-    int wild = 0;
+    ll n; cin >> n;
+    vector<ll> a(n);
+    rep(i, n) cin >> a[i];
+    list<ll> b;
     rep(i, n) {
-        int a; cin >> a;
-        if (a < 400) s.insert(0);
-        else if (a < 800) s.insert(1);
-        else if (a < 1200) s.insert(2);
-        else if (a < 1600) s.insert(3);
-        else if (a < 2000) s.insert(4);
-        else if (a < 2400) s.insert(5);
-        else if (a < 2800) s.insert(6);
-        else if (a < 3200) s.insert(7);
-        else wild++;
+        if (i%2==0) b.push_back(a[i]);
+        else b.push_front(a[i]);
     }
-    if (wild != 0) {
-        int tmp = s.size();
-        (tmp==0) ? cout << 1 << " " : cout << tmp << " ";
-        chmax(tmp, tmp+wild);
-        cout << tmp << endl;
-    } else {
-        cout << (int)s.size() << " "  << (int)s.size() << endl;
-    }
-
+    if (n%2!=0) reverse(ALL(b));
+    for (auto &x : b) cout << x << " ";
+    cout << endl;
     return 0;
 }

@@ -63,29 +63,18 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    set<int> s;
-    int wild = 0;
+    ll n; cin >> n;
+    ll one = 0, two = 0, four = 0;
     rep(i, n) {
-        int a; cin >> a;
-        if (a < 400) s.insert(0);
-        else if (a < 800) s.insert(1);
-        else if (a < 1200) s.insert(2);
-        else if (a < 1600) s.insert(3);
-        else if (a < 2000) s.insert(4);
-        else if (a < 2400) s.insert(5);
-        else if (a < 2800) s.insert(6);
-        else if (a < 3200) s.insert(7);
-        else wild++;
+        ll a; cin >> a;
+        if (a % 4 == 0) four++;
+        else if (a % 2 == 0) two++;
+        else one++;
     }
-    if (wild != 0) {
-        int tmp = s.size();
-        (tmp==0) ? cout << 1 << " " : cout << tmp << " ";
-        chmax(tmp, tmp+wild);
-        cout << tmp << endl;
+    if (two == 0) {
+        if (one <= four+1) { puts("Yes"); return 0;}
     } else {
-        cout << (int)s.size() << " "  << (int)s.size() << endl;
-    }
-
-    return 0;
+        if (one <= four) { puts("Yes"); return 0; }
+    } 
+    puts("No"); return 0;
 }

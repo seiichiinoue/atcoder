@@ -63,29 +63,18 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    set<int> s;
-    int wild = 0;
+    ll n; cin >> n;
+    vector<ll> a(n);
+    map<ll, ll> m;
+    rep(i, n) { cin >> a[i]; m[a[i]]++; }
+    sort(RALL(a)); // 降順にソート
+    ll one = -1, two = -1, cnt = 0;
     rep(i, n) {
-        int a; cin >> a;
-        if (a < 400) s.insert(0);
-        else if (a < 800) s.insert(1);
-        else if (a < 1200) s.insert(2);
-        else if (a < 1600) s.insert(3);
-        else if (a < 2000) s.insert(4);
-        else if (a < 2400) s.insert(5);
-        else if (a < 2800) s.insert(6);
-        else if (a < 3200) s.insert(7);
-        else wild++;
+        if (m[a[i]] > 1) {
+            if (one == -1) { one = a[i]; cnt++; m[a[i]] -= 2;}
+            else if (two == -1) { two = a[i]; cnt++; break; }
+        } else continue;
     }
-    if (wild != 0) {
-        int tmp = s.size();
-        (tmp==0) ? cout << 1 << " " : cout << tmp << " ";
-        chmax(tmp, tmp+wild);
-        cout << tmp << endl;
-    } else {
-        cout << (int)s.size() << " "  << (int)s.size() << endl;
-    }
-
+    (cnt == 2) ? cout << one * two << endl : cout << 0 << endl;
     return 0;
 }
