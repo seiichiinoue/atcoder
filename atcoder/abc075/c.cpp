@@ -60,47 +60,39 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
-template <class Abel> struct BIT {
-    const Abel UNITY_SUM = 0;
-    vector<Abel> dat;
-    /* [1, n] */
-    BIT(int n) : dat(n+1, UNITY_SUM) {}
-    void init(int n) { dat.assign(n+1, UNITY_SUM); }
-    /* a is 1-indexed */
-    inline void add(int a, Abel x) {
-        for (int i=a; i<(int)dat.size(); i+=i & -i)
-            dat[i] = dat[i] + x;
+vector<bool> visited(51, false);
+vector<vector<bool>> g(51, vector<bool>(51, false));
+vector<int> a(51), b(51);
+int n, m;
+
+void dfs(int v) {
+    visited[v] = true;
+    rep(to, n) {
+        if (g[v][to] == false) continue;
+        if (visited[to] == true) continue;
+        dfs(to);
     }
-    /* [1, a], a is 1-indexed */
-    inline Abel sum(int a) {
-        Abel res = UNITY_SUM;
-        for (int i=a; i>0; i-=i & -i)
-            res = res + dat[i];
-        return res;
-    }
-    /* [a, b), a and b are 1-indexed */
-    inline Abel sum(int a, int b) {
-        return sum(b-1) - sum(a-1);
-    }
-};
+}
 
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
-    vector<ll> cnt(60, 0);
-    rep(i, n) {
-        rep(j, 60) {
-            cnt[j] += (a[i] >> j) % 2;
-        }
+    cin >> n >> m;
+    rep(i, m) {
+        cin >> a[i] >> b[i];
+        a[i]--; b[i]--;
+        g[a[i]][b[i]] = true;
+        g[b[i]][a[i]] = true;
     }
-    ll ans = 0;
-    rep(b, 60) {
-        ans += (1ll << b) % MOD * cnt[b] % MOD * (n - cnt[b]) % MOD;
-        // ans += cnt[b] % MOD * (n -cnt[b]) % MOD << b;
-        ans %= MOD;
+    int ans = 0;
+    rep(i, m) {
+        g[a[i]][b[i]] = g[b[i]][a[i]] = false;
+        rep(j, n) visited[j] = false;
+        dfs(0);
+        bool bridge = false;
+        rep(j, n) if (!visited[j]) bridge = true;
+        if (bridge) ans++;
+        g[a[i]][b[i]] = g[b[i]][a[i]] = true;
     }
     cout << ans << endl;
     return 0;

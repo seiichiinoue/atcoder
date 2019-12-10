@@ -60,47 +60,20 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
-template <class Abel> struct BIT {
-    const Abel UNITY_SUM = 0;
-    vector<Abel> dat;
-    /* [1, n] */
-    BIT(int n) : dat(n+1, UNITY_SUM) {}
-    void init(int n) { dat.assign(n+1, UNITY_SUM); }
-    /* a is 1-indexed */
-    inline void add(int a, Abel x) {
-        for (int i=a; i<(int)dat.size(); i+=i & -i)
-            dat[i] = dat[i] + x;
-    }
-    /* [1, a], a is 1-indexed */
-    inline Abel sum(int a) {
-        Abel res = UNITY_SUM;
-        for (int i=a; i>0; i-=i & -i)
-            res = res + dat[i];
-        return res;
-    }
-    /* [a, b), a and b are 1-indexed */
-    inline Abel sum(int a, int b) {
-        return sum(b-1) - sum(a-1);
-    }
-};
-
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     ll n; cin >> n;
-    vector<ll> a(n);
+    vector<ll> a(n), b(n), c(n);
     rep(i, n) cin >> a[i];
-    vector<ll> cnt(60, 0);
-    rep(i, n) {
-        rep(j, 60) {
-            cnt[j] += (a[i] >> j) % 2;
-        }
-    }
+    rep(i, n) cin >> b[i];
+    rep(i, n) cin >> c[i];
+    sort(ALL(a)); sort(ALL(c));
     ll ans = 0;
-    rep(b, 60) {
-        ans += (1ll << b) % MOD * cnt[b] % MOD * (n - cnt[b]) % MOD;
-        // ans += cnt[b] % MOD * (n -cnt[b]) % MOD << b;
-        ans %= MOD;
+    rep(j, n) {
+        auto i = lower_bound(ALL(a), b[j]) - a.begin();
+        auto k = upper_bound(ALL(c), b[j]) - c.begin();
+        ans += (ll)i*(ll)(n-k);
     }
     cout << ans << endl;
     return 0;
