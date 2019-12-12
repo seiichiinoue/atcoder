@@ -60,42 +60,42 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
-vector<bool> visited(51, false);
-vector<vector<bool>> g(51, vector<bool>(51, false));
-vector<int> a(51), b(51);
-int n, m;
-
-void dfs(int v) {
-    visited[v] = true;
-    rep(to, n) {
-        if (g[v][to] == false) continue;
-        if (visited[to] == true) continue;
-        dfs(to);
+struct UnionFind {
+    vector<int> par;
+    UnionFind(int N) : par(N) {
+        rep(i, N) par[i] = i;
     }
-}
+    int root(int x) {
+        if (par[x]==x) return x;
+        return par[x] = root(par[x]);
+    }
+    void unite(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        if (rx==ry) return;
+        par[rx] = ry;
+    }
+    bool same(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        return rx == ry;
+    }
+};
 
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    cin >> n >> m;
+    int n, m; cin >> n >> m;
+    vector<int> p(n);
+    rep(i, n) {cin >> p[i]; --p[i];}
+    UnionFind tree(n);
     rep(i, m) {
-        cin >> a[i] >> b[i];
-        a[i]--; b[i]--;
-        g[a[i]][b[i]] = true;
-        g[b[i]][a[i]] = true;
+        int a, b; cin >> a >> b;
+        a--; b--;
+        tree.unite(a, b);
     }
     int ans = 0;
-    rep(i, m) {
-        g[a[i]][b[i]] = g[b[i]][a[i]] = false;
-        rep(j, n) visited[j] = false;
-        dfs(0);
-        bool bridge = false;
-        rep(j, n) if (!visited[j]) bridge = true;
-        rep(j, n) cout << visited[j] << " ";
-        cout<< "\n";
-        if (bridge) ans++;
-        g[a[i]][b[i]] = g[b[i]][a[i]] = true;
-    }
+    rep(i, n) if (tree.same(i, p[i])) ans++;
     cout << ans << endl;
     return 0;
 }

@@ -60,42 +60,9 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
-vector<bool> visited(51, false);
-vector<vector<bool>> g(51, vector<bool>(51, false));
-vector<int> a(51), b(51);
-int n, m;
-
-void dfs(int v) {
-    visited[v] = true;
-    rep(to, n) {
-        if (g[v][to] == false) continue;
-        if (visited[to] == true) continue;
-        dfs(to);
-    }
-}
-
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    cin >> n >> m;
-    rep(i, m) {
-        cin >> a[i] >> b[i];
-        a[i]--; b[i]--;
-        g[a[i]][b[i]] = true;
-        g[b[i]][a[i]] = true;
-    }
-    int ans = 0;
-    rep(i, m) {
-        g[a[i]][b[i]] = g[b[i]][a[i]] = false;
-        rep(j, n) visited[j] = false;
-        dfs(0);
-        bool bridge = false;
-        rep(j, n) if (!visited[j]) bridge = true;
-        rep(j, n) cout << visited[j] << " ";
-        cout<< "\n";
-        if (bridge) ans++;
-        g[a[i]][b[i]] = g[b[i]][a[i]] = true;
-    }
-    cout << ans << endl;
+    cout << "hello atcoder!" << endl;
     return 0;
 }

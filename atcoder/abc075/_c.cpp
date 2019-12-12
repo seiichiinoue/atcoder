@@ -60,17 +60,18 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
-vector<bool> visited(51, false);
-vector<vector<bool>> g(51, vector<bool>(51, false));
-vector<int> a(51), b(51);
+vector<int> visited(51, false);
+vector<vector<bool>> graph(51, vector<bool>(51, false));
+vector<int> a(51);
+vector<int> b(51);
 int n, m;
 
-void dfs(int v) {
-    visited[v] = true;
-    rep(to, n) {
-        if (g[v][to] == false) continue;
-        if (visited[to] == true) continue;
-        dfs(to);
+void dfs(int x) {
+    visited[x] = true;
+    rep(i, n) {
+        if (!graph[x][i]) continue;
+        if (visited[i]) continue;
+        dfs(i);
     }
 }
 
@@ -81,20 +82,17 @@ int main() {
     rep(i, m) {
         cin >> a[i] >> b[i];
         a[i]--; b[i]--;
-        g[a[i]][b[i]] = true;
-        g[b[i]][a[i]] = true;
+        graph[a[i]][b[i]] = graph[b[i]][a[i]] = true;
     }
     int ans = 0;
     rep(i, m) {
-        g[a[i]][b[i]] = g[b[i]][a[i]] = false;
+        graph[a[i]][b[i]] = graph[b[i]][a[i]] = false;
         rep(j, n) visited[j] = false;
         dfs(0);
         bool bridge = false;
         rep(j, n) if (!visited[j]) bridge = true;
-        rep(j, n) cout << visited[j] << " ";
-        cout<< "\n";
         if (bridge) ans++;
-        g[a[i]][b[i]] = g[b[i]][a[i]] = true;
+        graph[a[i]][b[i]] = graph[b[i]][a[i]] = true;
     }
     cout << ans << endl;
     return 0;
