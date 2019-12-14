@@ -64,13 +64,16 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     string l; cin >> l; // bit
-    string b = l;
-    reverse(ALL(b));
-    // a=0, b=0の場合は全通り
-    ll bit = 0;
-    rep(i, b.size()) bit += (1<<i) * (b[i] - '0');
-    // ll ans = bit*2%MOD+1;
-    vector<ll> dp1(l.size()), dp2(l.size());
-    
+    ll cnt = 0, ans = 0;
+    rep(i, l.size()) {
+        if (l[i] == '0') continue;
+        cnt++;
+        ll rest = l.size() - i - 1;
+        ans += (modpow(2, cnt-1) * modpow(3, rest)) % MOD;
+        ans %= MOD;
+    }
+    ans += modpow(2, cnt);
+    ans %= MOD;
+    cout << ans << endl;
     return 0;
 }
