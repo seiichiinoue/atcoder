@@ -7,7 +7,9 @@ def create_contest(name):
         source = f.readlines()
     problems = ["a", "b", "c", "d", "e", "f"]
     if name.find("abc") != -1:
-        if int(name.replace("abc", "")) < 126:
+        if name.find("virtual"):
+            pass
+        elif int(name.replace("abc", "")) < 126:
             problems = problems[:4]
     for s in problems:
         with open("./{}/{}.cpp".format(name, s), "w") as f:
