@@ -63,14 +63,8 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n, y; cin >> n >> y;
-    rep(man, n+1) for (int gosen=0; man+gosen<=n; ++gosen) {
-        ll sen = n-man-gosen;
-        if ((ll)((ll)man*10000+(ll)gosen*5000+(ll)sen*1000) == y) {
-            cout << man << " " << gosen << " " << sen << endl;
-            return 0;
-        }
-    }
-    cout << "-1" << " " << "-1" << " " << "-1" << endl;
+    int n; cin >> n;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
     return 0;
 }

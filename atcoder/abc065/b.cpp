@@ -63,6 +63,15 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    
+    int n; cin >> n;
+    vector<int> a(n);
+    rep(i, n) {cin >> a[i]; a[i]--;}
+    int now = 0, c = 0;
+    for (;;) {
+        if (now==1) {cout << c << endl; break;}
+        if (c >= n) {cout << "-1" << endl; break;}
+        now = a[now];
+        c++;
+    }
     return 0;
 }
