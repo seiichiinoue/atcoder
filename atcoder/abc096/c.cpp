@@ -60,22 +60,24 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+vector<int> dx = {0, 1, -1, 0};
+vector<int> dy = {1, 0, 0, -1};
+
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    vector<int> a(n+2);
-    a[0] = 0;
-    rep1(i, n) cin >> a[i];
-    a[n+1] = 0;
-    ll sum = 0;
-    rep(i, n+1) sum += abs(a[i] - a[i+1]);
-    rep1(i, n) {
-        ll tmp = sum;
-        tmp -= abs(a[i-1]-a[i]);
-        tmp -= abs(a[i]-a[i+1]);
-        tmp += abs(a[i-1]-a[i+1]);
-        cout << tmp << endl;
+    int h, w; cin >> h >> w;
+    vector<string> cs(h);
+    rep(i, h) cin >> cs[i];
+    int cnt = 0;
+    rep(i, h) rep(j, w) {
+        if (cs[i][j] == '#') {
+            bool flag = false;
+            rep(k, 4) if (i+dx[k] < h && i+dx[k] >=0 && j+dy[k] < w && j+dy[k] >= 0 && (cs[i+dx[k]][j+dy[k]] == '#')) flag = true;
+            if (!flag) cnt++;
+        }
     }
+    if (cnt == 0) puts("Yes");
+    else puts("No");
     return 0;
 }

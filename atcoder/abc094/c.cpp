@@ -64,18 +64,17 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     int n; cin >> n;
-    vector<int> a(n+2);
-    a[0] = 0;
-    rep1(i, n) cin >> a[i];
-    a[n+1] = 0;
-    ll sum = 0;
-    rep(i, n+1) sum += abs(a[i] - a[i+1]);
-    rep1(i, n) {
-        ll tmp = sum;
-        tmp -= abs(a[i-1]-a[i]);
-        tmp -= abs(a[i]-a[i+1]);
-        tmp += abs(a[i-1]-a[i+1]);
-        cout << tmp << endl;
+    vector<P> xs(n);
+    rep(i, n) {
+        cin >> xs[i].first;
+        xs[i].second = i;
     }
+    sort(ALL(xs));
+    vector<ll> ans(n);
+    rep(i, n) {
+        if (i < n/2) ans[xs[i].second] = xs[n/2].first;
+        else ans[xs[i].second] = xs[n/2-1].first;
+    }
+    rep(i, n) cout << ans[i] << endl;
     return 0;
 }

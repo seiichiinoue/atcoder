@@ -63,19 +63,10 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    vector<int> a(n+2);
-    a[0] = 0;
-    rep1(i, n) cin >> a[i];
-    a[n+1] = 0;
-    ll sum = 0;
-    rep(i, n+1) sum += abs(a[i] - a[i+1]);
-    rep1(i, n) {
-        ll tmp = sum;
-        tmp -= abs(a[i-1]-a[i]);
-        tmp -= abs(a[i]-a[i+1]);
-        tmp += abs(a[i-1]-a[i+1]);
-        cout << tmp << endl;
-    }
+    ll n, m; cin >> n >> m;
+    if (n==1 && m==1) puts("1");
+    else if (n==1) cout << m-2 << endl;
+    else if (m==1) cout << n-2 << endl;
+    else cout << (n-2)*(m-2) << endl;
     return 0;
 }

@@ -63,6 +63,21 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    cout << "hello atcoder!" << endl;
+    string s; cin >> s;
+    int k; cin >> k;
+    set<string> st;
+    rep(i, s.size()) {
+        for (int j=1; j<=k; ++j) {
+            string substr = "";
+            for (int l=i; l<min(i+j, (int)s.size()); ++l) substr += s[l];
+            st.insert(substr);
+        }
+    }
+    int cnt = 0;
+    for (auto itr = st.begin(); itr != st.end(); ++itr) {
+        cnt++;
+        if (cnt == k) cout << *itr << endl;
+        // cout << *itr << endl;
+    }
     return 0;
 }

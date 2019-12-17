@@ -60,22 +60,39 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+bool compare_by_greater_y(pair<int,int>a, pair<int,int>b){
+    if(a.second!=b.second) return a.second>b.second;
+    else return a.first>b.first;
+}
+
+// 貪欲+2部グラフマッチング
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     int n; cin >> n;
-    vector<int> a(n+2);
-    a[0] = 0;
-    rep1(i, n) cin >> a[i];
-    a[n+1] = 0;
-    ll sum = 0;
-    rep(i, n+1) sum += abs(a[i] - a[i+1]);
-    rep1(i, n) {
-        ll tmp = sum;
-        tmp -= abs(a[i-1]-a[i]);
-        tmp -= abs(a[i]-a[i+1]);
-        tmp += abs(a[i-1]-a[i+1]);
-        cout << tmp << endl;
+    vector<P> r(n), b(n);
+    vector<bool> rf(n);
+    rep(i, n) {
+        int x, y; cin >> x >> y;
+        r[i] = P(x, y);
+        rf[i] = 0;
     }
+    sort(ALL(r), compare_by_greater_y);
+    rep(i, n) {
+        int x, y; cin >> x >> y;
+        b[i] = P(x, y);
+    }
+    sort(ALL(b));
+    int ans = 0;
+    rep(i, n) {
+        rep(j, n) {
+            if (!rf[j] && r[j].first<b[i].first && r[j].second<b[i].second) {
+                ans++;
+                rf[j] = 1;
+                break;
+            }
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

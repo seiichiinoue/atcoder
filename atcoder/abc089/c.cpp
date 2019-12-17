@@ -64,18 +64,25 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     int n; cin >> n;
-    vector<int> a(n+2);
-    a[0] = 0;
-    rep1(i, n) cin >> a[i];
-    a[n+1] = 0;
-    ll sum = 0;
-    rep(i, n+1) sum += abs(a[i] - a[i+1]);
-    rep1(i, n) {
-        ll tmp = sum;
-        tmp -= abs(a[i-1]-a[i]);
-        tmp -= abs(a[i]-a[i+1]);
-        tmp += abs(a[i-1]-a[i+1]);
-        cout << tmp << endl;
+    vector<int> march(5, 0);
+    rep(i, n) {
+        string s; cin >> s;
+        if (s[0] == 'M') march[0]++;
+        else if (s[0] == 'A') march[1]++;
+        else if (s[0] == 'R') march[2]++;
+        else if (s[0] == 'C') march[3]++;
+        else if (s[0] == 'H') march[4]++;
     }
+    ll ans = 0;
+    for(int i = 1; i < 32; i++) {
+        ll count = 1;
+        if(bitset<5>(i).count() == 3) {
+            for(int j = 0; j < 5; j++) {
+                if(i & 1 << j) count *= march[j];
+            }
+            ans += count;
+        }
+    }
+    cout << ans << endl;
     return 0;
 }
