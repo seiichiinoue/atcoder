@@ -7,8 +7,8 @@ def create_contest(name):
         source = f.readlines()
     problems = ["a", "b", "c", "d", "e", "f"]
     if name.find("abc") != -1:
-        if name.find("virtual"):
-            pass
+        if name.find("virtual") != -1:
+            problems = problems
         elif int(name.replace("abc", "")) < 126:
             problems = problems[:4]
     for s in problems:
