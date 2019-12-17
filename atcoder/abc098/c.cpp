@@ -65,5 +65,19 @@ int main() {
     ios::sync_with_stdio(false);
     ll n; cin >> n;
     string s; cin >> s;
+    vector<int> cnt((int)s.size(), 0); // Eを向いている人のカウント
+    cnt[0] = (s[0] == 'E') ? 1 : 0;
+    rep1(i, s.size()-1) {
+        int tmp = (s[i] == 'E') ? 1 : 0;
+        cnt[i] += cnt[i-1] + tmp;
+    }
+    int ans = INF;
+    // rep(i, n) cout << cnt[i] << endl;
+    rep(i, s.size()) {
+        // cout << i << " " << i+1-cnt[i]-(int)(s[i]=='W') << " " << cnt[n-1]-cnt[i] << endl;
+        int tmp = (i+1-cnt[i]-(int)(s[i]=='W'))+(cnt[n-1]-cnt[i]);
+        chmin(ans, tmp);
+    }
+    cout << ans << endl;
     return 0;
 }
