@@ -60,9 +60,54 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+// 1 : chokudai -1 : naoko
+// vector<vecrtor<int>> field(3, vector<int>(3, 0));
+vector<vector<int>> b(2, vector<int>(3));
+vector<vector<int>> c(3, vector<int>(2));
+map<vector<vector<int>>, int> memo;
+
+// chokudai's point - naoko's point
+int calc_score(vector<vector<int>> &field) {
+    int chokudai = 0, naoko = 0;
+    rep(i, 2) rep(j, 3) {
+        if (field[i][j] == field[i+1][j]) chokudai += b[i][j];
+        else naoko += b[i][j];
+    }
+    rep(i, 3) rep(j, 2) {
+        if (field[i][j] == field[i][j+1]) chokudai += c[i][j];
+        else naoko += c[i][j];
+    }
+    return chokudai - naoko;
+}
+
+int search(int turn, vector<vector<int>> field) {
+    if (turn == 10) return memo[field] = calc_score(field);
+    if (memo.count(field)) return memo[field];
+    int ret = (turn%2) ? -INF : INF;
+    rep(i, 3) rep(j, 3) {
+        if (field[i][j] == -1) {
+            auto now = field;
+            if (turn % 2) {
+                now[i][j] = 1;
+                ret = max(ret, search(turn+1, now));
+            } else {
+                now[i][j] = 0;
+                ret = min(ret, search(turn+1, now));
+            }
+        }
+    }
+    return memo[field] = ret;
+}
+
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    cout << "hello atcoder!" << endl;
+    int sum = 0;
+    rep(i, 2) rep(j, 3) cin >> b[i][j], sum += b[i][j];
+    rep(i, 3) rep(j, 2) cin >> c[i][j], sum += c[i][j];
+    vector<vector<int>> field(3, vector<int>(3, -1));
+    int diff = search(1, field);
+    cout << (sum + diff) / 2 << endl;
+    cout << (sum - diff) / 2 << endl;
     return 0;
 }
