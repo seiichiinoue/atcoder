@@ -61,6 +61,17 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    ll n, k; cin >> n >> k;
+    vector<ll> a(n);
+    rep(i, n) {
+        ll ai; cin >> ai;
+        if (i==0) a[i] = ai;
+        else a[i] = a[i-1] + ai;
+    }
+    ll ans = a[k-1];
+    for (ll i=k; i<n; ++i) {
+        ans += a[i] - a[i-k];
+    }
+    cout << ans << endl;
     return 0;
 }

@@ -10,6 +10,7 @@
 #define chmax(x, y) x = max(x, y)
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
@@ -49,6 +50,17 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n; cin >> n;
+    vector<ll> a(n);
+    set<ll> st;
+    rep(i, n) { cin >> a[i]; st.insert(a[i]); }
+    map<ll, ll> mp;
+    int i = 0;
+    for (auto itr=st.begin(); itr!=st.end(); ++itr) {
+        mp[*itr] = i++;
+    }
+    rep(i, n) {
+        cout << mp[a[i]] << endl;
+    }
     return 0;
 }

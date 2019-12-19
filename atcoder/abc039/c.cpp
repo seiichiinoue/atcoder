@@ -61,6 +61,13 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    string s; cin >> s;
+    if ("WBWBWWBWBWBWWBWBWWBW" == s) cout << "Do" << endl;
+    else if ("WBWWBWBWBWWBWBWWBWBW" == s) cout << "Re" << endl;
+    else if ("WWBWBWBWWBWBWWBWBWBW" == s) cout << "Mi" << endl;
+    else if ("WBWBWBWWBWBWWBWBWBWW" == s) cout << "Fa" << endl;
+    else if ("WBWBWWBWBWWBWBWBWWBW" == s) cout << "So" << endl;
+    else if ("WBWWBWBWWBWBWBWWBWBW" == s) cout << "La" << endl;
+    else cout << "Si" << endl;
     return 0;
 }
