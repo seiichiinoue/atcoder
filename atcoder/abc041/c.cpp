@@ -8,6 +8,7 @@
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 
@@ -61,6 +62,10 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n; cin >> n;
+    vector<P> a(n);
+    rep(i, n) { cin >> a[i].first; a[i].second = i; }
+    sort(RALL(a));
+    rep(i, n) cout << a[i].second+1 << endl;
     return 0;
 }

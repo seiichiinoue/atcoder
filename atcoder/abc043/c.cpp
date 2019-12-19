@@ -61,6 +61,16 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n; cin >> n;
+    vector<int> a(n);
+    int mean = 0;
+    rep(i, n) cin >> a[i], mean += a[i];
+    mean /= n;
+    int ans = 0;
+    rep(i, n) ans += pow(a[i]-mean, 2);
+    int tmp = 0; mean += 1;
+    rep(i, n) tmp += pow(a[i]-mean, 2);
+    chmin(ans, tmp);
+    cout << ans << endl;
     return 0;
 }

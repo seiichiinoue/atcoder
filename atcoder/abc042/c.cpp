@@ -61,6 +61,21 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n, k; cin >> n >> k;
+    vector<char> d(k);
+    rep(i, k) cin >> d[i];
+    int ans = INF;
+    for (int i=n; i<=10*n; ++i) {
+        bool ok = true;
+        string num = to_string(i);
+        rep(j, num.size()) {
+            bool flag = false;
+            rep(l, d.size()) {
+                if (num[j]==d[l]) {flag = true; break;}
+            }
+            if (flag) {ok=false; break;}
+        }
+        if (ok) {cout << i << endl; return 0;}
+    }
     return 0;
 }
