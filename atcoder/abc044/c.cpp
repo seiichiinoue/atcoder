@@ -61,6 +61,20 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n, a; cin >> n >> a;
+    int m = 0;
+    vector<int> x(n);
+    rep(i, n) {cin >> x[i]; chmax(m, x[i]); x[i]-=a; }
+    int nx = n*m;
+    vector<vector<ll>> dp(n+1, vector<ll>(2*nx+1));
+    dp[0][nx] = 1;
+    rep(i, n) rep(j, 2*nx) {
+        if (0<=j+x[i] && j+x[i]<2*nx)
+            dp[i+1][j] = dp[i][j] + dp[i][j+x[i]];
+        else
+            dp[i+1][j] = dp[i][j];
+        // else dp[i+1][j] = 0;
+    }
+    cout << dp[n][nx]-1 << endl;
     return 0;
 }
