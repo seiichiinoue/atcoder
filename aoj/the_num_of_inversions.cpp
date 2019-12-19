@@ -46,10 +46,13 @@ int main() {
     sort(ALL(b));
     map<int, int> m;    // val -> index
     rep(i, n) m[b[i]] = i+1;
-    BIT<int> bit(n+1);
+    BIT<int> bit(n);
     ll ans = 0;
+    // bit.dat[i]はi番目までの部分配列において，順序が正しかった個数
     rep(i, n) {
+        // cout << m[a[i]] << " " << i+1 << endl;
         ans += i - bit.sum(m[a[i]]);
+        // cout << "bit sum: " << bit.sum(m[a[i]]) << endl;
         bit.add(m[a[i]], 1);
     }
     cout << ans << endl;

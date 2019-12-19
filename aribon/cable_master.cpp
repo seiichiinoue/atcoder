@@ -8,6 +8,7 @@
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
@@ -59,21 +60,26 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+int n=1e4 , k=1e4;
+vector<double> l(n);
+
+bool f(double x) {
+    int num = 0;
+    rep(i, n) num += (int)(l[i]/x);
+    return num >= k;
+}
+
 int main() {
-    cin.tie(0);
-    ios::sync_with_stdio(0);
-    int n, x; cin >> n >> x;
-    vector<ll> a(n);
-    rep(i, n) cin >> a[i];
-    ll ans = 0;
-    rep(i, n-1) {
-        if (a[i]+a[i+1] > x) {
-            ll tmp = (a[i]+a[i+1]) - x;
-            a[i+1] -= tmp;
-            chmax(a[i+1], 0ll);
-            ans += tmp;
-        }
+    cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cin >> n >> k;
+    rep(i, n) cin >> l[i];
+    double lb = 0, ub = INF;
+    rep(i, 100) {
+        double mid = (lb+ub) / 2;
+        if (f(mid)) lb = mid;
+        else ub = mid;
     }
-    cout << ans << endl;
+    cout << floor(ub * 100) / 100 << endl;
     return 0;
 }
