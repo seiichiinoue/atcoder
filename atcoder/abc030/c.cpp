@@ -8,6 +8,7 @@
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
@@ -60,34 +61,31 @@ ll modpow(ll a, ll n) {
 }
 
 int main() {
-    vector<string> word = {{"maerd"}, {"remaerd"}, {"resare"}, {"esare"}};
-    string s;
-    cin >> s;
-    int len = s.size();
-    reverse(s.begin(), s.end());
-    int ans = 0;
-    bool can = true;
-    for (int i = 0; i < s.size();i++){
-        string tmp="";
-        rep(j,5)tmp += s[i+j];
-        i += 4;
-        if(tmp==word[0]||tmp==word[3]){
-            continue;
+    cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    ll n, m, x, y; cin >> n >> m >> x >> y;
+    vector<ll> a(n), b(m);
+    rep(i, n) cin >> a[i];
+    rep(i, m) cin >> b[i];
+    ll cur = 0, ans = 0;
+    int i=0, j=0;
+    while (i<n && j<m) {
+        if (a[i]<cur) {
+            while (a[i]<cur) ++i;
         }
-        i++;
-        tmp += s[i];
-        if(tmp==word[2])
-            continue;
-        i++;
-        tmp += s[i];
-        if(tmp==word[1])
-            continue;
-        can = false;
-        break;
+        if (b[j]<cur) {
+            while (b[j]<cur) ++j;
+        }
+        if (ans%2==0) { // to b
+            if (i>=n) continue;
+            cur += (a[i]-cur)+x;
+            ans++;
+        } else { // to a
+            if (j>=m) continue;
+            cur += (b[j]-cur)+y;
+            ans++;
+        }
     }
-    if(can){
-        cout << "YES" << endl;
-    }else{
-        cout << "NO" << endl;
-    }
+    cout << ans/2 << endl;
+    return 0;
 }

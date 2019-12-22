@@ -62,6 +62,20 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(0);
     ios::sync_with_stdio(0);
-    cout << "hello atcoder!" << endl;
+    int n; cin >> n;
+    vector<int> a(n,0);
+    rep(i, n) {
+        int x; cin >> x;
+        a[x]++;
+    }
+    bool flag = true;
+    for (int i=n-1; i>0; i-=2) {
+        if (a[i]!=2) flag = false;
+    }
+    if (flag) {
+        ll ans = 1;
+        rep(i, n/2) (ans*=2)%=MOD;
+        cout << ans << endl;
+    } else puts("0");
     return 0;
 }

@@ -8,6 +8,7 @@
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
@@ -59,35 +60,19 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
-int main() {
-    vector<string> word = {{"maerd"}, {"remaerd"}, {"resare"}, {"esare"}};
-    string s;
-    cin >> s;
-    int len = s.size();
-    reverse(s.begin(), s.end());
-    int ans = 0;
-    bool can = true;
-    for (int i = 0; i < s.size();i++){
-        string tmp="";
-        rep(j,5)tmp += s[i+j];
-        i += 4;
-        if(tmp==word[0]||tmp==word[3]){
-            continue;
+void f(int rest, string s) {
+    if (rest == 0) cout << s << endl;
+    else {
+        for (char c = 'a'; c <= 'c'; ++c) {
+            f(rest-1, s+c);
         }
-        i++;
-        tmp += s[i];
-        if(tmp==word[2])
-            continue;
-        i++;
-        tmp += s[i];
-        if(tmp==word[1])
-            continue;
-        can = false;
-        break;
     }
-    if(can){
-        cout << "YES" << endl;
-    }else{
-        cout << "NO" << endl;
-    }
+}
+
+int main() {
+    cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    int n; cin >> n;
+    f(n, "");
+    return 0;
 }

@@ -8,6 +8,7 @@
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
@@ -60,34 +61,23 @@ ll modpow(ll a, ll n) {
 }
 
 int main() {
-    vector<string> word = {{"maerd"}, {"remaerd"}, {"resare"}, {"esare"}};
-    string s;
-    cin >> s;
-    int len = s.size();
-    reverse(s.begin(), s.end());
-    int ans = 0;
-    bool can = true;
-    for (int i = 0; i < s.size();i++){
-        string tmp="";
-        rep(j,5)tmp += s[i+j];
-        i += 4;
-        if(tmp==word[0]||tmp==word[3]){
-            continue;
-        }
-        i++;
-        tmp += s[i];
-        if(tmp==word[2])
-            continue;
-        i++;
-        tmp += s[i];
-        if(tmp==word[1])
-            continue;
-        can = false;
-        break;
+    cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    int n, k; cin >> n >> k;
+    vector<ll> xs(n);
+    rep(i, n) cin >> xs[i];
+    ll ans = INF;
+    if (k == 1) {
+        ll ans = 0;
+        rep(i, n) chmin(ans, abs(xs[i]));
+        cout << ans << endl;
+        return 0;
     }
-    if(can){
-        cout << "YES" << endl;
-    }else{
-        cout << "NO" << endl;
-    }
+    rep(i, n-k+1) {
+        // cout << i << endl;
+        int l = i, r = i+k-1;
+        ll cost = min(abs(xs[l])+abs(xs[r]-xs[l]), abs(xs[r])+abs(xs[r]-xs[l]));
+        chmin(ans, cost);
+    }   
+    cout << ans << endl;
 }
