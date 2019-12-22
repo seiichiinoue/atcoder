@@ -63,7 +63,6 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int a, b; cin >> a >> b;
-    cout << 6 - (a + b) << endl;
+    cout << "hello atcoder!" << endl;
     return 0;
 }

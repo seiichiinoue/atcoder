@@ -63,6 +63,13 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    cout << "hello atcoder!" << endl;
+    int n; cin >> n;
+    string s, t; cin >> s >> t;
+    string ans = "";
+    rep(i, n) {
+        ans += s[i];
+        ans += t[i];
+    }
+    cout << ans << endl;
     return 0;
 }

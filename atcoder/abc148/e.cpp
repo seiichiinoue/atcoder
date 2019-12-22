@@ -60,9 +60,26 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+vector<P> factorizer(ll n) {
+    vector<P> facts;
+    for (ll p=2; p*p<=n; ++p) {
+        if (n % p != 0) continue;
+        int num = 0;
+        while (n % p == 0) { ++num; n /= p; }
+        facts.push_back(P(p, num));
+    }
+    if (n != 1) facts.push_back(P(n, 1));
+    return facts;
+}
+
 int main() {
-    cin.tie(nullptr);
-    ios::sync_with_stdio(false);
-    cout << "hello atcoder!" << endl;
-    return 0;
+    ll n; cin >> n;
+    if (n & 1) { puts("0"); return 0; }
+    n /= 10;
+    ll cnt = n;
+    while (n) {
+        n /= 5;
+        cnt += n;
+    }
+    cout << cnt << endl;
 }

@@ -10,8 +10,8 @@ using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> P;
 constexpr ll  MOD = (1e9+7);
-constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
-constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
+constexpr ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
+constexpr ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
 
 template<class T> inline bool chmin(T& a, T b) {
     if (a > b) {
@@ -63,6 +63,7 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    cout << "hello atcoder!" << endl;
+    ll a, b; cin >> a >> b;
+    cout << lcm(a, b) << endl;
     return 0;
 }

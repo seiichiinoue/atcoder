@@ -63,7 +63,20 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int a, b; cin >> a >> b;
-    cout << 6 - (a + b) << endl;
+    int n; cin >> n;
+    vector<int> v(n);
+    rep(i, n) cin >> v[i];
+    map<int, int> e, o;
+    rep(i, n) (i%2) ? e[v[i]]++ : o[v[i]]++;
+    vector<P> cnt0, cnt1;
+    for (auto & iter : e) {
+        cnt0.push_back(P(iter.second, iter.first));
+    }
+    for (auto & iter : o) {
+        cnt1.push_back(P(iter.second, iter.first));
+    }
+    sort(RALL(cnt0));
+    sort(RALL(cnt1));
+    int max0 = cnt0[0].second, max1 = cnt1[0].second;
     return 0;
 }
