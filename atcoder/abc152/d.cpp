@@ -63,6 +63,14 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
-    return 0;
+    int n; cin >> n;
+    vector<vector<int>> c(10, vector<int>(10, 0));
+    rep1(i, n) {
+        int tmp = i;
+        while (tmp >=10) tmp/=10;
+        c[tmp][i%10]++;
+    }
+    int ans = 0;
+    rep1(i, 9) rep1(j, 9) ans += c[i][j] * c[j][i];
+    return 0; 
 }

@@ -63,6 +63,13 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
+    ll a, b, k; cin >> a >> b >> k;
+    ll tmp = a - k;
+    if (tmp<0) {
+        ll tmp1 = k - a;
+        cout << 0 << " " << max(b - tmp1, 0ll) << endl;
+    } else {
+        cout << tmp << " " << b << endl;
+    }
     return 0;
 }

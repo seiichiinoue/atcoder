@@ -63,6 +63,12 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
+    int n, m; cin >> n >> m;
+    int ac = 0, wa = 0;
+    vector<int> was(n, 0);
+    vector<int> acs(n, 0);
+    rep(i, m) {
+        
+    }
     return 0;
 }

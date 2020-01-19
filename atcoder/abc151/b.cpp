@@ -63,6 +63,10 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
+    int n, k, m; cin >> n >> k >> m;
+    int sum = 0;
+    rep(i, n-1) { int tmp; cin >> tmp; sum += tmp; }
+    if (sum+k < n*m) puts("-1");
+    else cout << max(0, n*m-sum) << endl;
     return 0;
 }

@@ -63,6 +63,15 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
+    int n; cin >> n;
+    int fi; cin >> fi;
+    int max_ele = fi;
+    int cnt = 1;
+    rep(i, n-1) {
+        int tmp; cin >> tmp;
+        if (tmp <= max_ele) cnt++;
+        chmin(max_ele, tmp);
+    }
+    cout << cnt << endl;
     return 0;
 }

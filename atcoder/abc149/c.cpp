@@ -60,9 +60,24 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+bool is_prime(long long n) {
+    if (n <= 1) return false;
+    for (long long p = 2; p * p <= n; ++p) {
+        if (n % p == 0) return false;
+    }
+    return true;
+}
+
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
+    int x; cin >> x;
+    for (;;) {
+        if (is_prime(x)) {
+            cout << x << endl;
+            break;
+        }
+        ++x;
+    }
     return 0;
 }

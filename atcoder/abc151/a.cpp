@@ -63,6 +63,7 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
+    char c; cin >> c;
+    cout << ++c << endl;
     return 0;
 }

@@ -63,6 +63,12 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
+    int a, b; cin >> a >> b;
+    string tmp1="", tmp2="";
+    rep(i, b) tmp1 += to_string(a);
+    rep(i, a) tmp2 += to_string(b);
+    if (tmp1 < tmp2) cout << tmp1;
+    else cout << tmp2;
+    cout << endl;
     return 0;
 }
