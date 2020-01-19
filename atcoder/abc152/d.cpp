@@ -72,5 +72,6 @@ int main() {
     }
     int ans = 0;
     rep1(i, 9) rep1(j, 9) ans += c[i][j] * c[j][i];
+    cout << ans << endl;
     return 0; 
 }
