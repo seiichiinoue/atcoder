@@ -64,11 +64,24 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     int n, m; cin >> n >> m;
-    int ac = 0, wa = 0;
-    vector<int> was(n, 0);
-    vector<int> acs(n, 0);
+    vector<int> ac_flags(n+1, 0);
+    vector<int> wa_count(n+1, 0);
+    int ac = 0;
     rep(i, m) {
-        
+        int p; string s;
+        cin >> p >> s;
+        // まだ正解していないかつ今回正解した
+        if (ac_flags[p] != 1 && s == "AC") {
+            ac_flags[p] = 1;
+            ac++;
+        }
+        // まだ正解していないかつ今回不正解だった
+        if (ac_flags[p] != 1 && s == "WA") wa_count[p]++;
     }
+    int wa = 0;
+    rep(i, n+1) {
+        if (ac_flags[i]) wa += wa_count[i];
+    }
+    cout << ac << " " << wa << endl;
     return 0;
 }
