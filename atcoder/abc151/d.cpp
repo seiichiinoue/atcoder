@@ -1,17 +1,11 @@
 #include <bits/stdc++.h>
-#define rep(i, n) for (int i=0; i<n; ++i)
-#define rep1(i, n) for (int i=1; i<=n; ++i)
-#define ALL(v) v.begin(), v.end()
-#define RALL(v) v.rbegin(), v.rend()
-#define EPS (1e-7)
-#define INF (1e9)
-#define PI (acos(-1))
 using namespace std;
-typedef long long ll;
-typedef pair<ll, ll> P;
-constexpr ll  MOD = (1e9+7);
-constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
-constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
+
+const int INF = 1000;
+typedef pair<int, int> P;
+
+#define MAX_N 20
+#define MAX_M 20
 
 template<class T> inline bool chmin(T& a, T b) {
     if (a > b) {
@@ -27,42 +21,72 @@ template<class T> inline bool chmax(T& a, T b) {
     }
     return false;
 }
-ll factorial(ll n, ll m=2) {
-    // calculate n!
-    m = max(2LL, m);
-    ll rtn = 1;
-    for (ll i=m; i<=n; i++) {
-        rtn = (rtn * i) % MOD;
+
+char maze[MAX_N][MAX_M];
+int N, M;
+int sx, sy, gx, gy;
+
+int d[MAX_N][MAX_M];
+
+int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
+
+int bfs() {
+    queue<P> que;
+    for (int i=0; i<N; ++i) {
+        for (int j=0; j<M; ++j) {
+            d[i][j] = INF;
+        }
     }
-    return rtn;
-}
-ll modinv(ll a, ll m) {
-    ll b = m, u = 1, v = 0;
-    while (b) {
-        ll t = a / b;
-        a -= t * b;
-        swap(a, b);
-        u -= t * v;
-        swap(u, v);
+    que.push(P(sx, sy));
+    d[sx][sy] = 0;
+
+    while (que.size()) {
+        P p = que.front(); que.pop();
+        if (p.first == gx && p.second == gy) break;
+        for (int i=0; i<4; ++i) {
+            int nx = p.first + dx[i], ny = p.second + dy[i];
+            if (0<=nx && nx<N && 0<=ny && ny<M && maze[nx][ny]!='#' && d[nx][ny]==INF) {
+                que.push(P(nx, ny));
+                d[nx][ny] = d[p.first][p.second] + 1;
+            }
+        }
     }
-    u %= m;
-    if (u < 0) u += m;
-    return u;
-}
-ll modpow(ll a, ll n) {
-    ll res = 1;
-    while (n > 0) {
-        if (n & 1)
-            res = res * a % MOD;
-        a = a * a % MOD;
-        n >>= 1;
-    }
-    return res;
+    return d[gx][gy];
 }
 
 int main() {
-    cin.tie(nullptr);
-    ios::sync_with_stdio(false);
-    cout << "hello atcoder!" << endl;
-    return 0;
+    cin >> N >> M;
+    for (int i=0; i<N; ++i) {
+        for (int j=0; j<M; ++j) {
+            char a;
+            cin >> a;
+            // if (a=='S') {
+            //     sx = i, sy = j;
+            // }
+            // if (a=='G') {
+            //     gx = i, gy = j;
+            // }
+            maze[i][j] = a;
+        }
+    }
+    int res = 0;
+    for (int i=0; i<N; ++i) {
+        for (int j=0; j<M; ++j) {
+            for (int k=0; k<N; ++k) {
+                for (int l=0; l<M; ++l) {
+                    // setting start and goal
+                    if (maze[i][j] != '#' && maze[k][l] != '#') {
+                        sx = i, sy = j;
+                        gx = k, gy = l;
+                    } else {
+                        continue;
+                    }
+
+                    chmax(res, bfs());
+                }
+            }
+            // reset start and goal
+        }
+    }
+    cout << res << endl;
 }
