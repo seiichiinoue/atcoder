@@ -63,5 +63,15 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
+    int n; cin >> n;
+    bool flag = true;
+    rep1(i, n) {
+        int a; cin >> a;
+        if (a%2==0) {
+            if (a%3==0 || a%5==0) continue;
+            else flag = false;
+        }
+    }
+    (flag) ? puts("APPROVED") : puts("DENIED");
     return 0;
 }

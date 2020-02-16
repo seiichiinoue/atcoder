@@ -63,5 +63,21 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
+    int n; cin >> n;
+    vector<double> p(n);
+    rep(i, n) cin >> p[i];
+    vector<vector<double>> dp(n+1, vector<double>(n+1, 0));
+    dp[0][0] = 1;
+    rep(i, n) {
+        rep(j, n) {
+            dp[i+1][j+1] += dp[i][j] * p[i];
+            dp[i+1][j] += dp[i][j] * (1-p[i]);
+        }
+    }
+    double ans = 0;
+    for (int i=n/2+1; i<=n; ++i) {
+        ans += dp[n][i];
+    }
+    cout << setprecision(10) << ans << endl;
     return 0;
 }

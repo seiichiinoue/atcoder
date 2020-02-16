@@ -63,5 +63,21 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
+    int n; cin >> n;
+    map<string, int> mp;
+    rep(i, n) {
+        string tmp; cin >> tmp;
+        mp[tmp]++;
+    }
+    int cnt = 0;
+    for (auto itr=mp.begin(); itr != mp.end(); ++itr) {
+        if (cnt < itr->second) cnt = itr->second;
+    }
+    vector<string> anss;
+    for (auto itr=mp.begin(); itr != mp.end(); ++itr) {
+        if (cnt == itr->second) anss.push_back(itr->first);
+    }
+    sort(ALL(anss));
+    for (auto s : anss) cout << s << endl;
     return 0;
 }

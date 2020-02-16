@@ -63,5 +63,10 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
+    int a, b, c; cin >> a >> b >> c;
+    if (a == b && a != c) puts("Yes");
+    else if (a == c && a != b) puts("Yes");
+    else if (b == c && a != b) puts("Yes");
+    else puts("No");
     return 0;
 }
