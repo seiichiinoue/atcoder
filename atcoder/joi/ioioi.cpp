@@ -63,25 +63,28 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
+    ll n, m; cin >> n >> m;
+    string s; cin >> s;
+    vector<int> vec;
+    int cnt = 0;
+    char prev = s[0];
+    string cur = "";
+    rep1(i, m-1) {
+        if (cur == "" && s[i] == 'I') cur += s[i], prev = 'I';
+        else if (s[i] != prev) cur += s[i], prev = s[i];
         else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+            if (prev == 'O') {
+                vec.push_back((int)cur.size()-1);
+            } else {
+                vec.push_back((int)cur.size());
+            }
+            cur = "";
+            if (s[i] == 'I') cur += s[i], prev = 'I';
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
+    // for (auto s : vec) cout << s << endl;
+    int ans = 0;
+    for (auto c : vec) if (c>=n+n+1) ans += c/2-n+1;
     cout << ans << endl;
     return 0;
 }

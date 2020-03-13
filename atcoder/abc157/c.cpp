@@ -63,25 +63,28 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+    int n, m; cin >> n >> m;
+    vector<int> tmp(n, 0);
+    vector<int> fixed_list;
+    rep(i, m) {
+        int s, c; cin >> s >> c;
+        s--;
+        tmp[s] = c;
+    }
+    rep(i, (n+1)*10) {
+        bool flag = true;
+        string cur = to_string(i);
+        for (auto j : fixed_list) {
+            cout << j << endl;
+            if (cur[j] != tmp[j]) {
+                flag = false;
+                continue;
+            }
+        }
+        if (flag) {
+            cout << cur << endl;
+            return 0;
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
     return 0;
 }

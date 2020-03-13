@@ -64,5 +64,6 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     ll n, k; cin >> n >> k;
+    
     return 0;
 }

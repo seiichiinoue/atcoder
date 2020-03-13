@@ -60,28 +60,65 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+struct UnionFind {
+    /* N: 0-indexed array size */
+    vector<int> par;
+    vector<int> _size;
+    
+    UnionFind(int N) : par(N), _size(N) {
+        rep(i, N) par[i] = i;
+        rep(i, N) _size[i] = 1;
+    }
+    
+    int root(int x) {
+        if (par[x]==x) return x;
+        return par[x] = root(par[x]);
+    }
+
+    void unite(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        if (rx==ry) return;
+        if (_size[rx] <= _size[ry]) swap(rx, ry);
+        _size[rx] += _size[ry];
+        par[ry] = rx;
+    }
+
+    bool same(int x, int y) {
+        int rx = root(x);
+        int ry = root(y);
+        return rx == ry;
+    }
+
+    int size(int x) {
+        return _size[root(x)];
+    }
+};
+
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+    int n, m, k; cin >> n >> m >> k;
+    UnionFind tree(n);
+    vector<set<int>> adj(n);
+    rep(i, m) {
+        int a, b; cin >> a >> b;
+        a--; b--;
+        tree.unite(a, b);
+        adj[a].insert(b);
+        adj[b].insert(a);
+    }
+    rep(i, k) {
+        int c, d; cin >> c >> d;
+        c--; d--;
+        if (tree.same(c, d)) {
+            adj[c].insert(d);
+            adj[d].insert(c);
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
+    rep(i, n) {
+        cout << tree.size(i) - adj[i].size() - 1 << " ";
+    }
+    cout << endl;
     return 0;
 }

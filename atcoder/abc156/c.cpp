@@ -63,25 +63,16 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
-        }
-    }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
+    int n; cin >> n;
+    int mean = 0;
+    vector<int> x(n);
+    rep(i, n) cin >> x[i], mean += x[i];
+    int mean1 = mean / n;
+    int mean2 = (mean+n-1)/n;
+    int ans = 0;
+    rep(i, n) ans += pow((x[i]-mean), 2);
+    int ans2 = 0;
+    rep(i, n) ans2 += pow(x[i]-mean2, 2);
+    cout << min(ans, ans2) << endl;
     return 0;
 }

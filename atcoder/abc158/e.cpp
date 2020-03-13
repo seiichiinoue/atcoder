@@ -49,39 +49,42 @@ ll modinv(ll a, ll m) {
     if (u < 0) u += m;
     return u;
 }
-ll modpow(ll a, ll n) {
+ll modpow(ll a, ll n, ll mod) {
     ll res = 1;
     while (n > 0) {
         if (n & 1)
-            res = res * a % MOD;
-        a = a * a % MOD;
+            res = res * a % mod;
+        a = a * a % mod;
         n >>= 1;
     }
     return res;
 }
 
 int main() {
-    cin.tie(nullptr);
-    ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+    int n, p; cin >> n >> p;
+    string s; cin >> s;
+    ll res = 0;
+    if (p==2 || p==5) {
+        rep(i, n) {
+            if ((s[i] - '0') % p == 0) res += i+1;
+        }
+    } else {
+        vector<int> vec(n+1);
+        rep(i, n) vec[i] = s[i] - '0';
+        reverse(ALL(vec));
+        vec[n] = 0;
+        vector<int> mods(n);
+        ll tmp = 0;
+        rep(i, n) {
+            tmp += (vec[i+1] % p * modpow(10, i, p) % p) % p;
+            tmp %= p;
+            mods[i] = tmp;
+        }
+        vector<int> cnt(p, 0);
+        rep(i, n) {
+            cnt[mods[i]]++;
+            res += (mods[i] == 0 ? cnt[mods[i]] : cnt[mods[i]]-1);
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
-    return 0;
+    cout << res << endl;
 }

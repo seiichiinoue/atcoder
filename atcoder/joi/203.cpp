@@ -60,28 +60,27 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+ll digit_sum(int tar) {
+    ll tmp = 0;
+    string digits = to_string(tar);
+    reverse(ALL(digits));
+    rep(i, digits.size()) {
+        tmp += (digits[i] - '0');
+    }
+    return tmp;
+}
+
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
-        }
+    ll n; cin >> n;
+    vector<int> dp(n+1, 0);
+    rep(i, n+1) {
+        dp[i]++;
+        ll ds = digit_sum(i);
+        if (i+ds > n) continue;
+        dp[i+ds] += dp[i];
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
+    cout << dp[n] << endl;
     return 0;
 }

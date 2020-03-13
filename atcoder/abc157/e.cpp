@@ -63,25 +63,33 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+    int n; string s; int q; cin >> n >> s >> q;
+    vector<set<int>> alpha(26);
+    // set<int> alpha[26];
+    rep(i, s.size()) {
+        alpha[s[i]-'a'].insert(i);
+    }
+    rep(i, q) {
+        int type; cin >> type;
+        if (type == 1) {
+            int k; char d; cin >> k >> d;
+            k--;
+            alpha[s[k]-'a'].erase(k);
+            alpha[d-'a'].insert(k);
+            s[k] = d;
+        }
+        if (type == 2) {
+            int l, r; cin >> l >> r;
+            l--; r--;
+            int cnt = 0;
+            rep(j, 26) {
+                auto tmp = alpha[j].lower_bound(l);
+                if (tmp != alpha[j].end() && *tmp <= r) {
+                    cnt++;
+                }
+            }
+            cout << cnt << endl;
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
     return 0;
 }

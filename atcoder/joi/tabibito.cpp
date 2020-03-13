@@ -9,7 +9,7 @@
 using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> P;
-constexpr ll  MOD = (1e9+7);
+constexpr ll  MOD = (1e5);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
 
@@ -63,25 +63,22 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
-        }
+    int n, m; cin >> n >> m;
+    vector<int> vec(n);
+    vec[0] = 0;
+    rep1(i, n-1) {
+        int tmp; cin >> tmp;
+        vec[i] = vec[i-1]+tmp;
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
+    int cur = 0, ans = 0;
+    rep(i, m) {
+        int tmp; cin >> tmp;
+        int dist;
+        dist = vec[max(cur, cur+tmp)]-vec[min(cur, cur+tmp)];
+        ans += dist;
+        ans %= MOD;
+        cur += tmp;
+    }
     cout << ans << endl;
     return 0;
 }

@@ -63,25 +63,49 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+    string s; cin >> s;
+    deque<char> dq;
+    rep(i, s.size()) {
+        dq.push_back(s[i]);
+    }
+    int q; cin >> q;
+    int cnt_rev = 0;
+    // reverseの回数が偶数の時は，元どおりなのでそのまま，奇数の時は逆側に追加すればよい
+    rep(i, q) {
+        int t; cin >> t;
+        if (t == 1) {
+            cnt_rev++;
+            continue;
+        } else {
+            int f; cin >> f;
+            char c; cin >> c;
+            if (f == 1) {
+                if (cnt_rev % 2 == 0) {
+                    dq.emplace_front(c);
+                } else {
+                    dq.emplace_back(c);
+                }
+            } else {
+                if (cnt_rev % 2 == 0) {
+                    dq.emplace_back(c);
+                } else {
+                    dq.emplace_front(c);
+                }
+            }
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
+    // if (cnt_rev % 2 != 0) reverse(ALL(s));
+    if (cnt_rev % 2 == 0) {
+        rep(i, dq.size()) {
+            cout << dq[i];
+        }
+        cout << endl;
+    } else {
+        for (int i=dq.size()-1; i>=0; --i){
+            cout << dq[i];
+        }
+        cout << endl;
+    }
+
     return 0;
 }

@@ -63,25 +63,50 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+    int n; cin >> n;
+    vector<ll> a(n);
+    cin >> a[0];
+    rep1(i, n-1) {
+        ll tmp; cin >> tmp;
+        a[i] = a[i-1] + tmp;
+    }
+    int c;
+    ll diff = INF;
+    rep(i, n) {
+        int tmp = abs((a[n-1]-a[i]) - a[i]);
+        if (tmp <= diff) {
+            diff = tmp;
+        } else {
+            c = i-1;
+            break;
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
-    cout << ans << endl;
+    int c1;
+    ll diff1 = INF;
+    rep(i, c+1) {
+        int tmp = abs((a[c]-a[i]) - a[i]);
+        if (tmp <= diff) {
+            diff1 = tmp;
+        } else {
+            c1 = i-1;
+            break;
+        }
+    }
+    int c2;
+    ll diff2 = INF;
+    for (int i=c+1; i<n; ++i) {
+        int tmp = abs((a[n-1]-a[i]) - a[i]-a[c]);
+        if (tmp <= diff2) {
+            diff2 = tmp;
+        } else {
+            c2 = i-1;
+            break;
+        }
+    }
+    rep(i, n) cout << a[i] << " ";
+    cout << endl;
+    ll sum1 = a[c1], sum2 = a[c]-a[c1], sum3 = a[c2]-a[c], sum4 = a[n-1]-a[c2];
+    cout << sum1 << " " << sum2 << " " << sum3 << " " << sum4 << endl;
+    cout << max({sum1, sum2, sum3, sum4}) - min({sum1, sum2, sum3, sum4}) << endl;
     return 0;
 }

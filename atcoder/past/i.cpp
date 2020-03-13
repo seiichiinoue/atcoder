@@ -4,7 +4,7 @@
 #define ALL(v) v.begin(), v.end()
 #define RALL(v) v.rbegin(), v.rend()
 #define EPS (1e-7)
-#define INF (1e9)
+#define INF (1e18)
 #define PI (acos(-1))
 using namespace std;
 typedef long long ll;
@@ -63,25 +63,29 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    string n; cin >> n;
-    vector<int> keta(n.size()+1);
-    rep(i, n.size()) keta[i+1] = n[i]-'0';
-    // rep(i, keta.size()) cout << keta[i] << endl;
-    reverse(ALL(keta));
-    keta[keta.size()-1] = 0;
-    ll ans = 0;
-    rep(i, keta.size()) {
-        // cout << keta[i] << " ";
-        if (keta[i] < 5 || (keta[i]==5&&keta[i+1]<5)) ans += keta[i];
-        // if (keta[i] < 5) ans += keta[i];
-        else {
-            if (keta[i] < 10) ans += 10 - keta[i];
-            keta[i+1]++;
+    int n, m; cin >> n >> m;
+    vector<ll> sets(m), val(m);
+    rep(i, m) {
+        string tmp; cin >> tmp;
+        cin >> val[i];
+        int bit = 0;
+        rep(j, n) bit |= (int)(tmp[j] == 'Y') << j;
+        sets[i] = bit;
+    }
+    // rep(i, m) cout << sets[i] << " " << val[i] << endl;
+    vector<vector<ll>> dp(m+1, vector<ll>((1<<n), INF));
+    // rep(i, m) dp[i][0] = 0;
+    dp[0][0] = 0;
+    rep(i, m) {
+        for (int bit=0; bit<(1<<n); ++bit) {
+            chmin(dp[i+1][bit|sets[i]], dp[i][bit]+val[i]);
+            dp[i+1][bit] = min(dp[i+1][bit], dp[i][bit]);
         }
     }
-    // cout << endl;
-    // rep(i, keta.size()) cout << keta[i] << " ";
-    // cout << endl;
+    ll ans = dp[m][(1<<n)-1] ==  INF ? -1 : dp[m][(1<<n)-1];
     cout << ans << endl;
-    return 0;
+    // rep(i, m+1) {
+    //     rep(j, (1<<n)) cout << dp[i][j] << " ";
+    //     cout << endl;
+    // }
 }
