@@ -66,6 +66,18 @@ int main() {
     ll k, n; cin >> k >> n;
     vector<ll> a(n);
     rep(i, n) cin >> a[i];
-    
+    int mx = 0;
+    ll sm = 0;
+    int tmp;
+    rep(i, n-1) {
+        tmp = a[i+1]-a[i];
+        chmax(mx, tmp);
+        sm += tmp;
+    }
+    tmp = k-a[n-1]+a[0];
+    chmax(mx, tmp);
+    sm += tmp;
+    sm -= mx;
+    cout << sm << endl;
     return 0;
 }
