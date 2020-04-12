@@ -64,6 +64,30 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     int n, x, y; cin >> n >> x >> y;
-    
+    x--; y--;
+    vector<vector<int>> dist(n, vector<int>(n, 0));
+    rep(i, n) rep(j, n) {
+        if (i==j) dist[i][j] = 0;
+        dist[i][j] = min({
+            abs(j-i),
+            abs(j-y) + abs(x-i) + 1,
+            abs(j-x) + abs(y-i) + 1
+        });
+    }
+    // rep1(i, n-1) {
+    //     int ans = 0;
+    //     rep(j, n) for(int k=j+1; k<n; ++k) {
+    //         if (dist[j][k] == i) {
+    //             ans++;
+    //             // cout << j << " " << k << endl;
+    //         }
+    //     }
+    //     cout << ans << endl;
+    // }
+    vector<int> ans(n);
+    rep(i, n) for (int j=i+1; j<n; ++j) {
+        ans[dist[i][j]]++;
+    }
+    rep1(i, n-1) cout << ans[i] << endl;
     return 0;
 }
