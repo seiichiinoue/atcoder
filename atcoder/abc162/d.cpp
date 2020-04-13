@@ -60,63 +60,85 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+// int main() {
+//     cin.tie(nullptr);
+//     ios::sync_with_stdio(false);
+//     int n; cin >> n;
+//     string s; cin >> s;
+//     // for (int j=1; j<n; ++j) {
+//     //     int i = j-1, k = j+1;
+//     //     while (i > 0 && k < n) {
+
+//     //     }
+//     // }
+//     vector<int> r(n, 0), g(n, 0), b(n, 0);
+//     rep(i, n) {
+//         if (i==0) {
+//             if (s[i]=='R') r[i]++;
+//             if (s[i]=='G') g[i]++;
+//             if (s[i]=='B') b[i]++;
+//         }
+//         else {
+//             if (s[i]=='R') {
+//                 r[i] = r[i-1]+1;
+//                 g[i] = g[i-1];
+//                 b[i] = b[i-1];
+//             }
+//             if (s[i]=='G') {
+//                 r[i] = r[i-1];
+//                 g[i] = g[i-1]+1;
+//                 b[i] = b[i-1];
+//             }
+//             if (s[i]=='B') {
+//                 r[i] = r[i-1];
+//                 g[i] = g[i-1];
+//                 b[i] = b[i-1]+1;
+//             }
+//         }
+//     }
+//     int ret = 0;
+//     for (int j=1; j<n; ++j) {
+//         int i=j-1, k=j+1;
+//         int ans = 0;
+//         if (s[j]=='R') {
+//             ans += g[i] * (b[n-1]-b[k-1]);
+//             ans += b[i] * (g[n-1]-g[k-1]);
+//             while(i>=0 && k<n) if ((s[i] == 'G' && s[k] == 'B') || s[i--] == 'B' && s[k++] == 'G') ans -= 1;
+//         }
+//         if (s[j]=='G') {
+//             ans += r[i] * (b[n-1]-b[k-1]);
+//             ans += b[i] * (r[n-1]-r[k-1]);
+//             while(i>=0 && k<n) if ((s[i] == 'R' && s[k] == 'B') || s[i--] == 'B' && s[k++] == 'R') ans -= 1;
+//         }
+//         if (s[j]=='B') {
+//             ans += g[i] * (r[n-1]-r[k-1]);
+//             ans += r[i] * (g[n-1]-g[k-1]);
+//             while(i>=0 && k<n) if ((s[i] == 'G' && s[k] == 'R') || s[i--] == 'R' && s[k++] == 'G') ans -= 1;
+//         }
+//         ret += ans;
+//     }
+//     cout << ret << endl;
+//     return 0;
+// }
+
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     int n; cin >> n;
     string s; cin >> s;
-    // for (int j=1; j<n; ++j) {
-    //     int i = j-1, k = j+1;
-    //     while (i > 0 && k < n) {
-
-    //     }
-    // }
-    vector<int> r(n, 0), g(n, 0), b(n, 0);
+    ll ans = 0;
+    ll r = 0, g = 0 , b = 0;
     rep(i, n) {
-        if (i==0) {
-            if (s[i]=='R') r[i]++;
-            if (s[i]=='G') g[i]++;
-            if (s[i]=='B') b[i]++;
-        }
-        else {
-            if (s[i]=='R') {
-                r[i] = r[i-1]+1;
-                g[i] = g[i-1];
-                b[i] = b[i-1];
-            }
-            if (s[i]=='G') {
-                r[i] = r[i-1];
-                g[i] = g[i-1]+1;
-                b[i] = b[i-1];
-            }
-            if (s[i]=='B') {
-                r[i] = r[i-1];
-                g[i] = g[i-1];
-                b[i] = b[i-1]+1;
-            }
-        }
+        if (s[i] == 'R') r++;
+        if (s[i] == 'G') g++;
+        if (s[i] == 'B') b++;
     }
-    int ret = 0;
-    for (int j=1; j<n; ++j) {
-        int i=j-1, k=j+1;
-        int ans = 0;
-        if (s[j]=='R') {
-            ans += g[i] * (b[n-1]-b[k-1]);
-            ans += b[i] * (g[n-1]-g[k-1]);
-            while(i>=0 && k<n) if ((s[i] == 'G' && s[k] == 'B') || s[i--] == 'B' && s[k++] == 'G') ans -= 1;
-        }
-        if (s[j]=='G') {
-            ans += r[i] * (b[n-1]-b[k-1]);
-            ans += b[i] * (r[n-1]-r[k-1]);
-            while(i>=0 && k<n) if ((s[i] == 'R' && s[k] == 'B') || s[i--] == 'B' && s[k++] == 'R') ans -= 1;
-        }
-        if (s[j]=='B') {
-            ans += g[i] * (r[n-1]-r[k-1]);
-            ans += r[i] * (g[n-1]-g[k-1]);
-            while(i>=0 && k<n) if ((s[i] == 'G' && s[k] == 'R') || s[i--] == 'R' && s[k++] == 'G') ans -= 1;
-        }
-        ret += ans;
+    ans = r * g * b;
+    for(int i=0; i<=n-3; ++i) for(int j=i+1; j<=n-2; ++j) {
+        int k = 2 * j - i;
+        if (k > n-1) continue;
+        if (s[i] != s[j] && s[j] != s[k] && s[k] != s[i]) ans--;
     }
-    cout << ret << endl;
+    cout << ans << endl;
     return 0;
 }
