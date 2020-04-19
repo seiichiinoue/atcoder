@@ -66,6 +66,23 @@ int main() {
     int n; cin >> n;
     vector<ll> a(n);
     rep(i, n) cin >> a[i];
-    
+    vector<P> a_i(n);
+    rep(i, n) {
+        a_i[i] = P(a[i], i);
+    }
+    sort(RALL(a_i));
+    vector<vector<ll>> dp(n+1, vector<ll>(n+1, 0));
+    ll ans = 0;
+    rep(l, n) {
+        rep(r, n) {
+            if (l + r == n) {
+                chmax(ans, dp[l][r]);
+                break;
+            }
+            chmax(dp[l+1][r], dp[l][r] + abs(a_i[l+r].second-l) * a_i[l+r].first);
+            chmax(dp[l][r+1], dp[l][r] + abs(a_i[l+r].second-(n-1-r)) * a_i[l+r].first);
+        }
+    }
+    cout << ans << endl;
     return 0;
 }
