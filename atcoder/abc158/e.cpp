@@ -69,22 +69,18 @@ int main() {
             if ((s[i] - '0') % p == 0) res += i+1;
         }
     } else {
-        vector<int> vec(n+1);
-        rep(i, n) vec[i] = s[i] - '0';
-        reverse(ALL(vec));
-        vec[n] = 0;
+        int m = 1;
         vector<int> mods(n);
-        ll tmp = 0;
-        rep(i, n) {
-            tmp += (vec[i+1] % p * modpow(10, i, p) % p) % p;
-            tmp %= p;
-            mods[i] = tmp;
+        vector<ll> cnt(p, 0);
+        cnt[0] = 1ll;
+        ll val = 0;
+        for (int i=n-1; i>=0; --i) {
+            val += m * (s[i]-'0');
+            val %= p;
+            cnt[val]++;
+            m = 10 * m % p;
         }
-        vector<int> cnt(p, 0);
-        rep(i, n) {
-            cnt[mods[i]]++;
-            res += (mods[i] == 0 ? cnt[mods[i]] : cnt[mods[i]]-1);
-        }
+        rep(i, p) res += cnt[i] * (cnt[i]-1) / 2;
     }
     cout << res << endl;
 }
