@@ -60,24 +60,58 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
+int n, m, ans;
+vector<vector<int>> ABCD;
+void dfs(vector<int> tmp, int pre) {
+    if (tmp.size() == n) {
+        int sum = 0;
+        for (auto a : ABCD) if (tmp[a[1]] - tmp[a[0]] == a[2]) sum += a[3];
+        chmax(ans, sum);
+        return;
+    }
+    for (int i=pre; i<=m; ++i) {
+        vector<int> tmp2 = tmp;
+        tmp2.push_back(i);
+        dfs(tmp2, i);
+    }
+}
+
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n, m; cin >> n >> m;
-    vector<ll> p(n+1);
-    rep1(i, n) cin >> p[i];
-    vector<ll> pt;
-    rep(i, n) pt.push_back(p[i]);
-    rep(i, n) rep(j, n) pt.push_back(p[i]+p[j]);
-    sort(ALL(pt));
-    ll ans = 0;
-    rep(i, pt.size()) {
-        int maxi = upper_bound(ALL(pt), m-pt[i])-pt.begin();
-        maxi--;
-        if (maxi>=0) {
-            chmax(ans, pt[i]+pt[maxi]);
-        }
+    int q; cin >> n >> m >> q;
+    rep(i, q) {
+        int a, b, c, d; cin >> a >> b >> c >> d;
+        ABCD.push_back({--a, --b, c, d});
     }
+    vector<int> tmp;
+    dfs(tmp, 1);
     cout << ans << endl;
+    // int n, m, q; cin >> n >> m >> q;
+    // ll ans = 0;
+    // vector<ll> A(q), B(q), C(q), D(q);
+    // rep(i, q) {
+    //     int a, b, c, d; 
+    //     cin >> A[i] >> B[i] >> C[i] >> D[i];
+    //     A[i]--; B[i]--;
+    // }
+    // vector<int> V(m);
+    // rep(i, m) V[i] = i+1;
+    // for (ll bit=1; bit < (1<<m); ++bit) {
+    //     vector<int> tmp;
+    //     ll score = 0;
+    //     if (__builtin_popcount(bit) != n) continue;
+    //     // cout <<  bitset<8>(bit) << endl;
+    //     for (int i=0; i<m; ++i) {
+    //         if (bit & (1<<i)) tmp.push_back(V[i]);
+    //     }
+    //     // rep(i, tmp.size()) cout << tmp[i] << " ";
+    //     rep(i, q) {
+    //         if (tmp[B[i]] - tmp[A[i]] == C[i]) score += D[i];
+    //     }
+    //     cout << score << endl;
+    //     chmax(ans, score);
+    // }
+    // cout << ans << endl;
     return 0;
 }

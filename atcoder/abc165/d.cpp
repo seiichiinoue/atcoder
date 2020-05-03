@@ -61,30 +61,14 @@ ll modpow(ll a, ll n) {
 }
 
 int main() {
-    cin.tie(nullptr);
-    ios::sync_with_stdio(false);
-    ll n, m; cin >> n >> m;
-    string s; cin >> s;
-    vector<int> vec;
-    int cnt = 0;
-    char prev = s[0];
-    string cur = "";
-    rep1(i, m-1) {
-        if (cur == "" && s[i] == 'I') cur += s[i], prev = 'I';
-        else if (s[i] != prev) cur += s[i], prev = s[i];
-        else {
-            if (prev == 'O') {
-                vec.push_back((int)cur.size()-1);
-            } else {
-                vec.push_back((int)cur.size());
-            }
-            cur = "";
-            if (s[i] == 'I') cur += s[i], prev = 'I';
-        }
+    ll a, b, n;
+    cin >> a >> b >> n;
+    ll ans = 0;
+    if (b - 1 <= n) {
+        ans = a * (b - 1);
+    } else {
+        ans = a * (n == b ? n - 1 : n);
     }
-    // for (auto s : vec) cout << s << endl;
-    int ans = 0;
-    for (auto c : vec) if (c>=n+n+1) ans += c/2-n+1;
+    ans /= b;
     cout << ans << endl;
-    return 0;
 }

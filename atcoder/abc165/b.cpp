@@ -9,7 +9,7 @@
 using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> P;
-constexpr ll  MOD = (1e5);
+constexpr ll  MOD = (1e9+7);
 constexpr int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }
 constexpr int lcm(int a, int b) { return a / gcd(a, b) * b; }
 
@@ -63,22 +63,13 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n, m; cin >> n >> m;
-    vector<int> vec(n);
-    vec[0] = 0;
-    rep1(i, n-1) {
-        int tmp; cin >> tmp;
-        vec[i] = vec[i-1]+tmp;
+    ll x; cin >> x;
+    ll ganpon = 100;
+    ll n = 0;
+    while (ganpon < x) {
+        ganpon *= 1.01;
+        n++;
     }
-    int cur = 0, ans = 0;
-    rep(i, m) {
-        int tmp; cin >> tmp;
-        int dist;
-        dist = vec[max(cur, cur+tmp)]-vec[min(cur, cur+tmp)];
-        ans += dist;
-        ans %= MOD;
-        cur += tmp;
-    }
-    cout << ans << endl;
+    cout << n << endl;
     return 0;
 }

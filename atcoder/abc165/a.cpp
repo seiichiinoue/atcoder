@@ -60,27 +60,16 @@ ll modpow(ll a, ll n) {
     return res;
 }
 
-ll digit_sum(int tar) {
-    ll tmp = 0;
-    string digits = to_string(tar);
-    reverse(ALL(digits));
-    rep(i, digits.size()) {
-        tmp += (digits[i] - '0');
-    }
-    return tmp;
-}
-
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    ll n; cin >> n;
-    vector<int> dp(n+1, 0);
-    rep(i, n+1) {
-        dp[i]++;
-        ll ds = digit_sum(i);
-        if (i+ds > n) continue;
-        dp[i+ds] += dp[i];
+    int k, a, b; cin >> k >> a >> b;
+    for (int i=a; i<=b; ++i) {
+        if (i%k==0) {
+            puts("OK");
+            return 0;
+        }
     }
-    cout << dp[n] << endl;
+    puts("NG");
     return 0;
 }
