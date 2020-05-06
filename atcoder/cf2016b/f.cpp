@@ -63,24 +63,5 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    int n; cin >> n;
-    vector<int> x(n);
-    rep(i, n) cin >> x[i];
-    int ans = 1e8;
-    for (int i=1; i<=100; ++i) {
-        int tmp = 0;
-        for (int j=0; j<n; ++j) {
-            tmp += pow(x[j]-i, 2);
-        }
-        chmin(ans, tmp);
-    }
-    cout << ans << endl;
-    // int mean1 = mean / n;
-    // int mean2 = (mean+n-1)/n;
-    // int ans = 0;
-    // rep(i, n) ans += pow((x[i]-mean), 2);
-    // int ans2 = 0;
-    // rep(i, n) ans2 += pow(x[i]-mean2, 2);
-    // cout << min(ans, ans2) << endl;
     return 0;
 }
