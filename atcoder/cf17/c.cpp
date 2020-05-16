@@ -61,8 +61,20 @@ ll modpow(ll a, ll n) {
 }
 
 int main() {
-    cin.tie(nullptr);
-    ios::sync_with_stdio(false);
-    vector<int> masu(9);
+    long long n, k; cin >> n >> k;
+    vector<long long> w(n), d(n);
+    for (int i=0; i<n; ++i) {
+        cin >> w[i] >> d[i];
+    }
+    // f(x) = \sum_i (k-w_i) / d_i + 1
+    long long l = 0, r = 2e18;
+    while (r - l > 1) {
+        long long mid = (l + r) / 2;
+        long long cnt = 0;
+        for (int i=0; i<n; ++i) if (w[i] <= mid) cnt += (mid-w[i])/d[i] + 1;
+        if (cnt < k) l = mid;
+        else r = mid;
+    }
+    cout << r << endl;
     return 0;
 }

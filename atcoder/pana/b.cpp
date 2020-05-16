@@ -64,7 +64,7 @@ int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
     ll h, w; cin >> h >> w;
-    if (h == 1 || w == 1) cout << 1 << endl;
+    if (h == 1 || w == 1) {cout << 1 << endl; return 0;}
     ll tmp = h * w;
     if (tmp&1) cout << tmp/2+1 << endl;
     else cout << tmp/2 << endl;

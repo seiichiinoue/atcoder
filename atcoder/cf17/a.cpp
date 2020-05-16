@@ -63,6 +63,5 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
-    vector<int> masu(9);
     return 0;
 }
