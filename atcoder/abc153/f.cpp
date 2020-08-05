@@ -67,5 +67,20 @@ int main() {
     vector<P> x_h(n);
     rep(i, n) cin >> x_h[i].first >> x_h[i].second;
     sort(ALL(x_h));
-
+    ll ans = 0, range_sum = 0;
+    queue<P> bombs;
+    rep(i, n) {
+        while (!bombs.empty() && bombs.front().first < x_h[i].first) {
+            range_sum -= bombs.front().second * a;
+            bombs.pop();
+        }
+        x_h[i].second = max(0ll, x_h[i].second - range_sum);
+        if (x_h[i].second <= 0) continue;
+        ll cur = x_h[i].first + 2 * d;
+        ll cur_need = (x_h[i].second + a - 1) / a;
+        ans += cur_need;
+        range_sum += cur_need * a;
+        bombs.push(P(cur, cur_need));
+    }
+    cout << ans << endl;
 }
