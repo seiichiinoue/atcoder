@@ -63,5 +63,12 @@ ll modpow(ll a, ll n) {
 int main() {
     cin.tie(nullptr);
     ios::sync_with_stdio(false);
+    ll n, k; cin >> n >> k;
+    ll ans = 0;
+    vector<vector<ll>> nxt(60, vector<ll>(n));
+    rep(i, n) cin >> nxt[0][i], nxt[0][i]--;
+    rep1(i, 59) rep(j, n) nxt[i][j] = nxt[i-1][nxt[i-1][j]];
+    rep(i, 60) if (k&(1ll<<i)) ans = nxt[i][ans];
+    cout << ++ans << endl;
     return 0;
 }
